@@ -22,14 +22,14 @@ public class SplashActivity extends AppCompatActivity {
     TextView slogan;
 
     //        DURATION OF splash screen
-    private static int SPLASH_SCREEN = 5000;
+    private static final int SPLASH_SCREEN = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //        change status bar color
+        //        change status bar color and make blend
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
