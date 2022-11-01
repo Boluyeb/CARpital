@@ -1,4 +1,27 @@
 <resources>
     <string name="app_name">CARpital</string>
-    <string name="test_text">Welcome to America</string>
+
+    <!--    string for splash screen-->
+    <string name="buy_sell_save">Buy. Sell. Save.</string>
+
+    <!--    strings for the onboarding screen-->
+    <!--    Titles -->
+    <string name="first_slide_title">Find Your Perfect Car</string>
+    <string name="second_slide_title">Sell With Ease</string>
+    <string name="third_slide_title">Get Accident Report</string>
+    <string name="fourth_slide_title">Get Reviews</string>
+
+    <!--    Descriptions-->
+    <string name="first_slide_desc">Get the best deals for used cars around you</string>
+    <string name="second_slide_desc">Create an advert in minutes and start selling from the comfort of your home</string>
+    <string name="third_slide_desc">Get a free salvage report on any vehicle by simply entering the VIN</string>
+    <string name="fourth_slide_desc">Read the latest reviews from unbiased experts and like-minded car owners.</string>
+
+    <!--    Buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="next_btn">Next</string>
+    <string name="let_get_started">Lets Get Started</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="sign_in">Sign in</string>
+
 </resources>
