@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CARpital</string>
+    <string name="test_text">Welcome to America</string>
 </resources>
