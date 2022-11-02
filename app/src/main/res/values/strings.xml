@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CARpital</string>
+    <string name="app_name">Carpital</string>
 
     <!--    string for splash screen-->
     <string name="buy_sell_save">Buy. Sell. Save.</string>
@@ -24,5 +24,6 @@
     <string name="have_an_account">Have an account?</string>
     <string name="sign_in">Sign in</string>
     <string name="carpital">Carpital</string>
+    <string name="skip">SKIP</string>
 
 </resources>

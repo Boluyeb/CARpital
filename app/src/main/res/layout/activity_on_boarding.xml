@@ -20,6 +20,19 @@
 
     </androidx.viewpager.widget.ViewPager>
 
+    <Button
+        android:id="@+id/skip_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        android:background="#00000000"
+        android:drawableEnd="@drawable/skip_icon"
+        android:onClick="skip"/>
+
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="411dp"
@@ -38,6 +51,7 @@
             android:fontFamily="@font/archivo_black"
             android:text="@string/let_get_started"
             android:textColor="@color/seed"
+            android:visibility="invisible"
             app:cornerRadius="10dp" />
 
 
@@ -59,7 +73,8 @@
             android:background="#00000000"
             android:drawableEnd="@drawable/forward_icon"
             android:paddingBottom="30dp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:onClick="next"/>
 
 
     </RelativeLayout>
