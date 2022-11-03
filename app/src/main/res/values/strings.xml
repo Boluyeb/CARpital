@@ -25,5 +25,15 @@
     <string name="sign_in">Sign in</string>
     <string name="carpital">Carpital</string>
     <string name="skip">SKIP</string>
+    <string name="login_welcome">Welcome</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="forget_password">Forgot Password?</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="login">LOGIN</string>
+    <string name="logo">logo</string>
+    <string name="google_signin">Sign-in with Google</string>
+    <string name="signup">Don\'t have an account? SignUp</string>
+    <string name="remember_me">Remember Me</string>
 
 </resources>

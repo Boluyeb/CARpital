@@ -1,9 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/md_theme_light_onPrimary"
+    android:padding="20dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/logoImg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/carpital_blue"
+        android:contentDescription="@string/logo"
+        android:layout_gravity="center"
+        />
+
+
+    <TextView
+        android:id="@+id/login_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_welcome"
+        android:textSize="40sp"
+        android:fontFamily="@font/archivo_black"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/sign_in_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_to_continue"
+        android:textSize="18sp"
+        android:fontFamily="@font/archivo"
+        android:textColor="#000000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+            app:startIconDrawable="@drawable/username_icon"
+            app:endIconMode="clear_text"
+            app:endIconTint="#000000">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+            app:startIconDrawable="@drawable/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <Button-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#00000000"-->
+<!--            android:text="@string/forget_password"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:textColor="#000000"-->
+<!--            android:fontFamily="@font/archivo_black"-->
+<!--            android:elevation="0dp"-->
+<!--            android:textColorHint="@color/seed"-->
+<!--            />-->
+
+<!--        Maybe: comment the remember me button-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:text="@string/remember_me"
+                android:buttonTint="#000000"
+                android:fontFamily="@font/archivo"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text="@string/forget_password"
+                android:textColor="#000000"
+                android:fontFamily="@font/archivo"
+                android:elevation="0dp"
+
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/login"
+            android:fontFamily="@font/archivo_black"
+            android:background="@color/seed"
+            android:letterSpacing="0.1"
+            android:textColor="#fff"
+            />
+
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:fontFamily="@font/archivo"-->
+<!--            android:text="@string/google_signin"-->
+<!--            android:textColor="#000000"-->
+<!--            app:cornerRadius="0dp"-->
+<!--            style="@style/Widget.Material3.Button.OutlinedButton"-->
+<!--            app:startIconDrawable="@drawable/google"-->
+<!--            />-->
+
+<!--        app:boxStrokeColor="@color/seed"-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="@string/signup"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:fontFamily="@font/archivo_black"
+            android:elevation="0dp"
+            android:textColorHint="@color/seed"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
