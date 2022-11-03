@@ -19,21 +19,21 @@ public class OnBoarding extends AppCompatActivity {
 
     ViewPager viewPager;
     LinearLayout dotsLayout;
-//    log any errors
+    //    log any errors
     public static String LOG_TAG = OnBoarding.class.getSimpleName();
 
-//    object of the slide adapter
+    //    object of the slide adapter
     OnboardingSlidesAdapter sliderAdapter;
 
-//    create navigation dots
+    //    create navigation dots
     TextView[] dots;
 
     Button getStartedBtn;
 
-//     animation
+    //     animation
     Animation animation;
 
-//    get current slide position
+    //    get current slide position
     private int currentPosition;
 
 
@@ -45,8 +45,8 @@ public class OnBoarding extends AppCompatActivity {
         setContentView(R.layout.activity_on_boarding);
 
         //        hooks
-        viewPager =  findViewById(R.id.slider);
-        dotsLayout =  findViewById(R.id.dots);
+        viewPager = findViewById(R.id.slider);
+        dotsLayout = findViewById(R.id.dots);
         getStartedBtn = findViewById(R.id.get_started_button);
 //
 //      call adapter object and pass the OnBoarding activity through it
@@ -60,38 +60,45 @@ public class OnBoarding extends AppCompatActivity {
         viewPager.addOnPageChangeListener(changeListener);
     }
 
-//    this button advances to the login page
-    public void skip(View view){
-        Intent intent =  new Intent(this,LoginActivity.class);
+    //    this button advances to the login page
+    public void skip(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
-//    this button advances slide on the onboarding page
-    public void next(View view){
+    //    button advances to the login page
+    public void getStarted(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    //    this button advances slide on the onboarding page
+    public void next(View view) {
         viewPager.setCurrentItem(currentPosition + 1);
     }
 
-//    to create dots
+    //    to create dots
     private void addDots(int position) {
         dots = new TextView[4];
         dotsLayout.removeAllViews();
 
 //        loop through dots for each page
-        for(int i=0; i<dots.length; i++){
+        for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226"));
             dots[i].setTextSize(35);
 
             dotsLayout.addView(dots[i]);
         }
-        if (dots.length>0) {
+        if (dots.length > 0) {
             dots[position].setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
         }
     }
 
-//    a listener to watch out for page change
-    ViewPager.OnPageChangeListener changeListener = new ViewPager.OnPageChangeListener(){
+    //    a listener to watch out for page change
+    ViewPager.OnPageChangeListener changeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -104,17 +111,14 @@ public class OnBoarding extends AppCompatActivity {
             currentPosition = position;
 
 //            hide button until last slide
-       if (position == 0){
+            if (position == 0) {
                 getStartedBtn.setVisibility(View.INVISIBLE);
-            }
-            else if (position == 1){
+            } else if (position == 1) {
                 getStartedBtn.setVisibility(View.INVISIBLE);
-            }
-            else if (position == 2){
+            } else if (position == 2) {
                 getStartedBtn.setVisibility(View.INVISIBLE);
-            }
-            else {
-                animation = AnimationUtils.loadAnimation(OnBoarding.this,R.anim.bottom_animation);
+            } else {
+                animation = AnimationUtils.loadAnimation(OnBoarding.this, R.anim.bottom_animation);
 //                animation for button
                 getStartedBtn.setAnimation(animation);
                 getStartedBtn.setVisibility(View.VISIBLE);
@@ -127,4 +131,6 @@ public class OnBoarding extends AppCompatActivity {
 
         }
     };
+
+
 }

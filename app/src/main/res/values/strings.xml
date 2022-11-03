@@ -35,5 +35,12 @@
     <string name="google_signin">Sign-in with Google</string>
     <string name="signup">Don\'t have an account? SignUp</string>
     <string name="remember_me">Remember Me</string>
+    <string name="create_account">Create \nAccount</string>
+    <string name="name_client">Name</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="next">NEXT</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="submit">SUBMIT</string>
 
 </resources>
