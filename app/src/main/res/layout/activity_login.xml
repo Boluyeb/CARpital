@@ -51,9 +51,9 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
+            android:hint="@string/email"
             style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
-            app:startIconDrawable="@drawable/username_icon"
+            app:startIconDrawable="@drawable/email_icon"
             app:endIconMode="clear_text"
             app:endIconTint="#000000"
             >
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="#000000"/>
+                android:textColor="#000000" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +121,8 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:text="@string/forget_password"
-                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textColor="@color/seed"
                 android:fontFamily="@font/archivo"
                 android:elevation="0dp"
 

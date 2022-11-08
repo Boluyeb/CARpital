@@ -33,7 +33,7 @@
     <string name="login">LOGIN</string>
     <string name="logo">logo</string>
     <string name="google_signin">Sign-in with Google</string>
-    <string name="signup">Don\'t have an account? SignUp</string>
+    <string name="signup">Don\'t have an account? <font color='#4871DA'>SignUp</font></string>
     <string name="remember_me">Remember Me</string>
     <string name="create_account">Create \nAccount</string>
     <string name="name_client">Name</string>
