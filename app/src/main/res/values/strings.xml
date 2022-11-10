@@ -42,5 +42,10 @@
     <string name="next">NEXT</string>
     <string name="phone_number">Phone Number</string>
     <string name="submit">SUBMIT</string>
+    <string name="otp_desc">Code has been sent to +111*****9999</string>
+    <string name="close_button">close button</string>
+    <string name="otp_image">otp image</string>
+    <string name="verify_otp">Verify</string>
+
 
 </resources>
