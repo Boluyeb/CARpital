@@ -57,6 +57,12 @@
     <string name="via_email">via Email:</string>
     <string name="number_sms">+11111111111</string>
     <string name="email_mail">support@gmail.com</string>
+    <string name="new_ncredentials">New\nCredentials</string>
+    <string name="cred_desc">Your identity has been verified! Kindly create a new password.</string>
+    <string name="password_nupdated">Password Updated</string>
+    <string name="success_desc">Your account is now ready to use. Kindly login with the updated password</string>
+    <string name="or">OR</string>
+    <string name="continue_with">Continue With Google</string>
 
 
 </resources>

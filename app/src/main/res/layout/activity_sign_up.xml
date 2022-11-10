@@ -201,13 +201,70 @@
             android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:elevation="5dp"
-            android:transitionName="transition_next_login"
             android:onClick="submitLogin"
             />
 
+        <!--        Continue with google-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/or"
+                android:fontFamily="@font/archivo"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/black" />
+
+        </LinearLayout>
 
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/googleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/black_border"
+            android:drawableStart="@drawable/google"
+            android:fontFamily="@font/archivo"
+            android:letterSpacing="0.1"
+            android:padding="10dp"
+            android:text="@string/continue_with"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:transitionName="transition_next_login"
+            />
 
+        <!--        /continue with google-->
 
     </LinearLayout>
 
