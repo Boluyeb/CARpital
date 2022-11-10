@@ -64,5 +64,7 @@
     <color name="CustomColor1">#4871DA</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="boxColor">#e8f1ff</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

@@ -46,6 +46,17 @@
     <string name="close_button">close button</string>
     <string name="otp_image">otp image</string>
     <string name="verify_otp">Verify</string>
+    <string name="login_small">Login</string>
+    <string name="click_to_go_back">Click to go back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_details">Kindly provide the email account for which you want to reset password</string>
+    <string name="make_selection">Make\nSelection</string>
+    <string name="select_details">Select which contact detail we should use to reset your password</string>
+    <string name="via_sms">via SMS:</string>
+    <string name="via_email">via Email:</string>
+    <string name="number_sms">+11111111111</string>
+    <string name="email_mail">support@gmail.com</string>
 
 
 </resources>
