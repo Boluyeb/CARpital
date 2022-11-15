@@ -44,6 +44,7 @@
     <!--            android:layout_height=""/>-->
 
     <com.chaos.view.PinView
+        android:id="@+id/otp_pin"
         style="@style/PinWidget.PinView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +69,8 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/archivo_black"
         android:text="@string/verify_otp"
-        app:cornerRadius="0dp" />
+        app:cornerRadius="0dp"
+        android:onClick="goToNextScreen"/>
 
 
 </LinearLayout>

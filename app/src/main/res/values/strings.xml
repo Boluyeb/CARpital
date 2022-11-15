@@ -61,8 +61,9 @@
     <string name="cred_desc">Your identity has been verified! Kindly create a new password.</string>
     <string name="password_nupdated">Password Updated</string>
     <string name="success_desc">Your account is now ready to use. Kindly login with the updated password</string>
-    <string name="or">OR</string>
-    <string name="continue_with">Continue With Google</string>
+    <string name="or">Or Continue With</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
 
 
 </resources>

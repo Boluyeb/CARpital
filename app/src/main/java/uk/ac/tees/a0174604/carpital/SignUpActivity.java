@@ -1,17 +1,23 @@
 package uk.ac.tees.a0174604.carpital;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.hbb20.CountryCodePicker;
 
 import org.w3c.dom.Text;
 
@@ -27,6 +33,12 @@ public class SignUpActivity extends AppCompatActivity {
     TextInputLayout phoneNumber;
     TextInputLayout password;
     TextInputLayout confirmPassword;
+    CountryCodePicker countryCodePicker;
+
+//    linear layout
+    LinearLayout signupLayout;
+
+    String TAG = SignUpActivity.class.getSimpleName();
 
 
     @Override
@@ -45,6 +57,11 @@ public class SignUpActivity extends AppCompatActivity {
         phoneNumber = findViewById(R.id.phoneNumber);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirm_password);
+        countryCodePicker = findViewById(R.id.country_code);
+
+
+
+
 
 //        go back to previous page
         signup_backBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,14 +74,60 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void submitLogin(View view) {
-//        validate all fields
 
+
+
+//        validate all fields
         if (!validateFields(name) | !validateFields(email) | !validateFields(phoneNumber) | !validateFields(password) | !validateFields(confirmPassword) | !validatePassword() | !validateEmail()) {
             return;
         }
         else {
-            Intent intent = new Intent(this,SignupSecondActivity.class);
-            startActivity(intent);
+
+            signupLayout = findViewById(R.id.signup_layout);
+
+            signupLayout.setVisibility(View.INVISIBLE);
+//
+//                        Intent intent = new Intent(this,SignupSecondActivity.class);
+//            startActivity(intent);
+
+            //                                get the user's input in string form
+            String userName = name.getEditText().getText().toString().trim();
+            String userEmail = email.getEditText().getText().toString().trim();
+            String userPhoneNo = phoneNumber.getEditText().getText().toString().trim();
+
+            String countryCode = countryCodePicker.getSelectedCountryCodeWithPlus();
+
+            Log.d(TAG,countryCode);
+            String userFullPhoneNo = countryCode+userPhoneNo;
+            Log.d(TAG,userFullPhoneNo);
+
+            String userPwd = password.getEditText().getText().toString().trim();
+            String userConfirmPwd = confirmPassword.getEditText().getText().toString().trim();
+
+
+            //            pass all fields from activity to otp fragment
+            Bundle bundle =  new Bundle();
+            bundle.putString("name", userName);
+            bundle.putString("email", userEmail);
+            bundle.putString("phoneNo", userFullPhoneNo);
+            bundle.putString("pwd", userPwd);
+            bundle.putString("confirmPwd", userConfirmPwd);
+
+//            launch the otp fragment
+//            instantiate fragment
+              OTPFragment otpFragment = OTPFragment.newInstance();
+
+            ////            send the bundle
+            otpFragment.setArguments(bundle);
+
+//              fragment manager
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+//           start Fragment Transaction
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+//            create fragment
+            fragmentTransaction.replace(R.id.fragment_container, otpFragment).commit();
         }
 
     }
@@ -126,6 +189,8 @@ private boolean validateEmail() {
             return true;
         }
     }
+
+
 
 
 //    public void nextSignupScreen(View view) {
