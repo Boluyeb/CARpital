@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
@@ -27,17 +28,29 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OTPFragment#newInstance} factory method to
+ * Use the {@link OTPFragment#getInstance} factory method to
  * create an instance of this fragment.
  */
 public class OTPFragment extends Fragment {
     PinView pinFromUser;
+
+//    unique variable for single pattern to ensure that the object is created only one
+    private static OTPFragment unique;
+
+//    variables for data passed from signup activity
+    String phoneNum;
+    String name;
+    String email;
+    String pwd;
+
 
     private FirebaseAuth mAuth;
 //    sent code
@@ -45,9 +58,16 @@ public class OTPFragment extends Fragment {
 
     Button goToNextScreen;
 
+    TextView otpDesc;
+
     private String TAG = OTPFragment.class.getSimpleName();
 
     LinearLayout signupLayout;
+
+    //    private constructor for fragment
+    private OTPFragment() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,9 +81,17 @@ public class OTPFragment extends Fragment {
 //        hooks
         pinFromUser = rootView.findViewById(R.id.otp_pin);
         goToNextScreen = rootView.findViewById(R.id.verify_otp);
+        otpDesc = rootView.findViewById(R.id.otpDesc);
 
-//        get phone number from the signup activity
-        String phoneNum = getArguments().getString("phoneNo");
+//        data from the signup activity
+         phoneNum = getArguments().getString("phoneNo");
+         name = getArguments().getString("name");
+         email = getArguments().getString("email");
+         pwd = getArguments().getString("pwd");
+
+
+//        display on otp screen
+        otpDesc.setText("Code has been sent to "+phoneNum);
 
         sendVerificationCodeToUser(phoneNum);
 
@@ -141,8 +169,18 @@ public class OTPFragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                             Log.d(TAG,"Cred is working ");
+
+//                            check what the activity is before moving to the next thing
+
+
+//                            store new users
+                            storeNewUsersData();
+
                             Intent intent =  new Intent(getActivity(), SignupSecondActivity.class);
                             startActivity(intent);
+
+//                            close activity
+                            getActivity().finish();
 
                 } else {
                     Log.d(TAG,"Cred is not working ");
@@ -166,10 +204,27 @@ public class OTPFragment extends Fragment {
 
     }
 
+    private void storeNewUsersData() {
+//        start pointing to database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        point to the database reference (table)
+        DatabaseReference reference = database.getReference("Users");
 
+//        add new users use the UserDbClass
+        UserDbClass addNewUser = new UserDbClass(name,email,phoneNum,pwd);
+
+//        set value and add user id as phone number
+        reference.child(phoneNum).setValue(addNewUser);
+
+    }
+
+    //try singleton design approach to ensure that the instance is created only once.
     //    a method that will be used to instatntiate the fragment
-    public static OTPFragment newInstance() {
-        return new OTPFragment();
+    public static OTPFragment getInstance() {
+        if (unique == null){
+            unique = new OTPFragment();
+        }
+        return unique;
     }
 
 }

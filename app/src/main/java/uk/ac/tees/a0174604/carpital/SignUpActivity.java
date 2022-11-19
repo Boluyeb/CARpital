@@ -77,11 +77,14 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
+
+
 //        validate all fields
         if (!validateFields(name) | !validateFields(email) | !validateFields(phoneNumber) | !validateFields(password) | !validateFields(confirmPassword) | !validatePassword() | !validateEmail()) {
             return;
         }
         else {
+//            check if user already exists.
 
             signupLayout = findViewById(R.id.signup_layout);
 
@@ -93,7 +96,14 @@ public class SignUpActivity extends AppCompatActivity {
             //                                get the user's input in string form
             String userName = name.getEditText().getText().toString().trim();
             String userEmail = email.getEditText().getText().toString().trim();
+
+
             String userPhoneNo = phoneNumber.getEditText().getText().toString().trim();
+
+            //            trim the first zero here
+            if (userPhoneNo.charAt(0)=='0'){
+                userPhoneNo = userPhoneNo.substring(1);
+            }
 
             String countryCode = countryCodePicker.getSelectedCountryCodeWithPlus();
 
@@ -115,7 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 //            launch the otp fragment
 //            instantiate fragment
-              OTPFragment otpFragment = OTPFragment.newInstance();
+              OTPFragment otpFragment = OTPFragment.getInstance();
 
             ////            send the bundle
             otpFragment.setArguments(bundle);

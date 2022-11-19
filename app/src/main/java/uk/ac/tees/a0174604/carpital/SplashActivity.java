@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
 //                    finish();
 //                }
 
-//                commit later and use shared preferences
+//                comment later and use shared preferences
                     Intent intent = new Intent(SplashActivity.this, OnBoarding.class);
                     startActivity(intent);
                     finish();
