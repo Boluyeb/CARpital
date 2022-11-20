@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout pwd;
     private CountryCodePicker countryCodePicker;
 
+//    forgot password btn
+    private Button forgotBtn;
 
     //    log tag
     String TAG = SignUpActivity.class.getSimpleName();
@@ -50,6 +52,17 @@ public class LoginActivity extends AppCompatActivity {
         phoneNum = findViewById(R.id.phoneNumber);
         pwd = findViewById(R.id.password);
         countryCodePicker = findViewById(R.id.country_code);
+        forgotBtn = findViewById(R.id.forgot_password);
+
+        forgotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

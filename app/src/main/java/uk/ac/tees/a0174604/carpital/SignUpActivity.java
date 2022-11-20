@@ -1,5 +1,6 @@
 package uk.ac.tees.a0174604.carpital;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,8 +16,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import org.w3c.dom.Text;
@@ -75,20 +82,18 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void submitLogin(View view) {
 
-
-
-
-
 //        validate all fields
         if (!validateFields(name) | !validateFields(email) | !validateFields(phoneNumber) | !validateFields(password) | !validateFields(confirmPassword) | !validatePassword() | !validateEmail()) {
             return;
         }
+
+
         else {
-//            check if user already exists.
+
 
             signupLayout = findViewById(R.id.signup_layout);
 
-            signupLayout.setVisibility(View.INVISIBLE);
+
 //
 //                        Intent intent = new Intent(this,SignupSecondActivity.class);
 //            startActivity(intent);
@@ -100,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             String userPhoneNo = phoneNumber.getEditText().getText().toString().trim();
 
-            //            trim the first zero here
+            //            trim the first zero for phone number
             if (userPhoneNo.charAt(0)=='0'){
                 userPhoneNo = userPhoneNo.substring(1);
             }
@@ -114,30 +119,57 @@ public class SignUpActivity extends AppCompatActivity {
             String userPwd = password.getEditText().getText().toString().trim();
             String userConfirmPwd = confirmPassword.getEditText().getText().toString().trim();
 
+//            check if user exists
+            Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(userFullPhoneNo);
 
-            //            pass all fields from activity to otp fragment
-            Bundle bundle =  new Bundle();
-            bundle.putString("name", userName);
-            bundle.putString("email", userEmail);
-            bundle.putString("phoneNo", userFullPhoneNo);
-            bundle.putString("pwd", userPwd);
-            bundle.putString("confirmPwd", userConfirmPwd);
+//            fetch user data
+            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        phoneNumber.setError("This user already exists");
+
+                    }
+                    else {
+                        phoneNumber.setError(null);
+                        phoneNumber.setErrorEnabled(false);
+                        signupLayout.setVisibility(View.INVISIBLE);
+
+                        //            pass all fields from activity to otp fragment
+                        Bundle bundle =  new Bundle();
+                        bundle.putString("name", userName);
+                        bundle.putString("email", userEmail);
+                        bundle.putString("phoneNo", userFullPhoneNo);
+                        bundle.putString("pwd", userPwd);
+                        bundle.putString("confirmPwd", userConfirmPwd);
+                        //                                to know the fragment it is coming from
+                        bundle.putString("whichActivity",SignUpActivity.class.getSimpleName());
 
 //            launch the otp fragment
 //            instantiate fragment
-              OTPFragment otpFragment = OTPFragment.getInstance();
+                        OTPFragment otpFragment = OTPFragment.getInstance();
 
-            ////            send the bundle
-            otpFragment.setArguments(bundle);
+                        ////            send the bundle
+                        otpFragment.setArguments(bundle);
 
 //              fragment manager
-            FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
 
 //           start Fragment Transaction
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 //            create fragment
-            fragmentTransaction.replace(R.id.fragment_container, otpFragment).commit();
+                        fragmentTransaction.replace(R.id.fragment_container, otpFragment).commit();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(SignUpActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
 
     }
@@ -199,6 +231,7 @@ private boolean validateEmail() {
             return true;
         }
     }
+
 
 
 

@@ -50,6 +50,7 @@ public class OTPFragment extends Fragment {
     String name;
     String email;
     String pwd;
+    String whichActivity;
 
 
     private FirebaseAuth mAuth;
@@ -88,6 +89,9 @@ public class OTPFragment extends Fragment {
          name = getArguments().getString("name");
          email = getArguments().getString("email");
          pwd = getArguments().getString("pwd");
+        whichActivity = getArguments().getString("whichActivity");
+
+
 
 
 //        display on otp screen
@@ -170,17 +174,40 @@ public class OTPFragment extends Fragment {
                 if(task.isSuccessful()){
                             Log.d(TAG,"Cred is working ");
 
-//                            check what the activity is before moving to the next thing
+//                            check what the activity" is before moving to the next thing
+                            if (whichActivity.equals("SignUpActivity")){
 
+//                                store new users
+                                storeNewUsersData();
 
-//                            store new users
-                            storeNewUsersData();
-
-                            Intent intent =  new Intent(getActivity(), SignupSecondActivity.class);
-                            startActivity(intent);
+                                Intent intent =  new Intent(getActivity(), SignupSecondActivity.class);
+                                startActivity(intent);
 
 //                            close activity
-                            getActivity().finish();
+                                getActivity().finish();
+                            }
+                            else if (whichActivity.equals("ForgotPasswordActivity")) {
+                                //                                pass the fullphonenumber to the next fragment
+                                Bundle bundle = new Bundle();
+                                bundle.putString("phoneNo",phoneNum);
+//                                to know the fragment it is coming from
+                                bundle.putString("whichActivity",ForgotPasswordActivity.class.getSimpleName());
+
+//                                                              instantiate next fragment
+
+                                SetNewPasswordFragment setNewPasswordFragment = SetNewPasswordFragment.newInstance();
+
+//                              send the bundle
+                                setNewPasswordFragment.setArguments(bundle);
+//
+//                                set fragment
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.fragment_holder, setNewPasswordFragment).addToBackStack(setNewPasswordFragment.toString()).commit();
+
+                            }
+
+//
 
                 } else {
                     Log.d(TAG,"Cred is not working ");

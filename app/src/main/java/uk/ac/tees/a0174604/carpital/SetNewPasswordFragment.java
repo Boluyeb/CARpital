@@ -3,10 +3,17 @@ package uk.ac.tees.a0174604.carpital;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,43 +22,64 @@ import android.view.ViewGroup;
  */
 public class SetNewPasswordFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TextInputLayout pwd;
+    private TextInputLayout confirmPwd;
+    private Button submitPwd;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+//    get phone number passed
+    private String phoneNum;
 
-    public SetNewPasswordFragment() {
-        // Required empty public constructor
+    //    unique variable for single pattern to ensure that the object is created only one
+    private static SetNewPasswordFragment unique;
+
+    //    use singleton pattern to instantiate the forgotpasswordfragment
+    public static SetNewPasswordFragment newInstance(){
+        if (unique == null){
+            unique = new SetNewPasswordFragment();
+        }
+        return unique;
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SetNewPasswordFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SetNewPasswordFragment newInstance(String param1, String param2) {
-        SetNewPasswordFragment fragment = new SetNewPasswordFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+//    validate for empty values
+    private boolean validateFields(TextInputLayout inputVal) {
+    //        get the name as a string
+        String val = inputVal.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()) {
+            inputVal.setError("This field is required");
+            return false;
+        } else {
+            inputVal.setError(null);
+            inputVal.setErrorEnabled(false);
+            return true;
+        }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//    validate password ensuring the passwords match
+    private boolean validatePassword() {
+//        get the name as a string
+        String val = pwd.getEditText().getText().toString().trim();
+        String checkPassword = "^" +
+                "(?=.*[a-zA-Z@#$%^&*+=])" + //any letter
+//                "(?=\\s+$)" + //no white spaces
+                ".{6,}" + //at  least 6 characters
+                "$";
+
+        String confirmVal = confirmPwd.getEditText().getText().toString().trim();
+// check if password matches requirements.
+        if (!val.matches(checkPassword)) {
+            pwd.setError("Password should contain at least 6 characters!");
+            return false;
+        } else if (!confirmVal.equals(val)) {
+            confirmPwd.setError("Password must match");
+            return false;
+        } else {
+            pwd.setError(null);
+            pwd.setErrorEnabled(false);
+            confirmPwd.setError(null);
+            confirmPwd.setErrorEnabled(false);
+            return true;
         }
     }
 
@@ -59,6 +87,44 @@ public class SetNewPasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_set_new_password, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_set_new_password, container, false);
+
+//        hooks
+        pwd = rootView.findViewById(R.id.cred_pwd);
+        confirmPwd = rootView.findViewById(R.id.cred_pwd_confirm);
+        submitPwd = rootView.findViewById(R.id.submitBtn);
+
+//        data from previous fragment
+        phoneNum = getArguments().getString("phoneNo");
+
+        submitPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!validateFields(pwd) || !validateFields(confirmPwd) || !validatePassword()){
+                    return;
+                }
+                else{
+//                    get user input
+                    String userNewPwd = pwd.getEditText().getText().toString().trim();
+
+//                    update password in firebase database
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+                    databaseReference.child(phoneNum).child("password").setValue(userNewPwd);
+
+//                    launch fragment
+                    RecoverPasswordSuccessFragment recoverPasswordSuccessFragment = RecoverPasswordSuccessFragment.getInstance();
+
+//                    set fragment
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_holder, recoverPasswordSuccessFragment).addToBackStack(recoverPasswordSuccessFragment.toString()).commit();
+
+
+
+                }
+            }
+        });
+
+        return rootView;
     }
 }
