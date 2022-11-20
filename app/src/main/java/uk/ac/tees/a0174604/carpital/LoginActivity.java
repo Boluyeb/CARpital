@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     //    log tag
     String TAG = SignUpActivity.class.getSimpleName();
 
+    private RelativeLayout progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         pwd = findViewById(R.id.password);
         countryCodePicker = findViewById(R.id.country_code);
         forgotBtn = findViewById(R.id.forgot_password);
+        progressBar = findViewById(R.id.progress_bar);
 
         forgotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +70,13 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 if (!validateFields(phoneNum) || !validateFields(pwd)) {
                     return;
                 } else {
+                    progressBar.setVisibility(View.VISIBLE);
 
 //                  get the data the user enters in the login page
                     String userPhoneNo = phoneNum.getEditText().getText().toString().trim();
@@ -107,12 +114,16 @@ public class LoginActivity extends AppCompatActivity {
                                     pwd.setError(null);
                                     pwd.setErrorEnabled(false);
 
-//                                    test if the data is fetching properly
-                                    String name = snapshot.child(userFullPhoneNo).child("name").getValue(String.class);
-                                    String email = snapshot.child(userFullPhoneNo).child("email").getValue(String.class);
-                                    String pNum = snapshot.child(userFullPhoneNo).child("phoneNumber").getValue(String.class);
+////                                    test if the data is fetching properly
+//                                    String name = snapshot.child(userFullPhoneNo).child("name").getValue(String.class);
+//                                    String email = snapshot.child(userFullPhoneNo).child("email").getValue(String.class);
+//                                    String pNum = snapshot.child(userFullPhoneNo).child("phoneNumber").getValue(String.class);
 
-                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
+
+                                    Intent intent = new Intent(LoginActivity.this,TestActivity.class);
+                                    startActivity(intent);
+                                    finish();
 
 
                                 }
@@ -120,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                 else {
                                     pwd.setError("Password entered is incorrect");
                                     Log.d(TAG, "password doesn't match");
+                                    progressBar.setVisibility(View.INVISIBLE);
                                 }
                             }
 //                            the account created doesn't exist
@@ -127,7 +139,9 @@ public class LoginActivity extends AppCompatActivity {
 //                                Toast.makeText(LoginActivity.this, "This user doesn't exist", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "user doesn't exist");
                                 phoneNum.setError("This user doesn't exist");
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
+
                         }
 
 
@@ -137,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+
             }
         });
 

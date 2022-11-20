@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     String TAG = SignUpActivity.class.getSimpleName();
 
+    private RelativeLayout progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirm_password);
         countryCodePicker = findViewById(R.id.country_code);
+        progressBar = findViewById(R.id.progress_bar);
 
 
 
@@ -90,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         else {
 
-
+            progressBar.setVisibility(View.VISIBLE);
             signupLayout = findViewById(R.id.signup_layout);
 
 
@@ -128,6 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()) {
                         phoneNumber.setError("This user already exists");
+                        progressBar.setVisibility(View.INVISIBLE);
 
                     }
                     else {

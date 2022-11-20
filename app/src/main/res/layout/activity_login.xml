@@ -7,6 +7,10 @@
     tools:context=".LoginActivity"
     android:background="@color/md_theme_light_onPrimary">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -173,21 +177,7 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cornerRadius="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="@string/login"
-            android:fontFamily="@font/archivo_black"
-            android:background="@color/seed"
-            android:letterSpacing="0.1"
-            android:textColor="#fff"
-            />
-
-<!--        <Button-->
+        <!--        <Button-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_marginStart="15dp"-->
@@ -202,6 +192,19 @@
 <!--            />-->
 
 <!--        app:boxStrokeColor="@color/seed"-->
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/seed"
+            android:fontFamily="@font/archivo_black"
+            android:letterSpacing="0.1"
+            android:text="@string/login"
+            android:textColor="#fff"
+            app:cornerRadius="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -319,8 +322,29 @@
 
         <!--        /continue with google-->
     </LinearLayout>
-
-
 </LinearLayout>
+
+<!--        progress bar -->
+    <RelativeLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:elevation="8dp"
+        android:visibility="invisible"
+        android:background="@drawable/blue_circle">
+
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/seed"/>
+
+    </RelativeLayout>
+
+    </RelativeLayout>
 
 </ScrollView>
