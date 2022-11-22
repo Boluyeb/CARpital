@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     //progress bar
     private RelativeLayout progressBar;
 
-//    Broadcast receiver to check internet connection
+    //    Broadcast receiver to check internet connection
     BroadcastReceiver broadcastReceiver;
 
 
@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 //                check internet connection
                 registerNetworkBroadcast();
 
+//                validate fields
                 if (!validateFields(phoneNum) || !validateFields(pwd)) {
                     return;
                 } else {
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                  get the data the user enters in the login page
                     String userPhoneNo = phoneNum.getEditText().getText().toString().trim();
+                    String userPwd = pwd.getEditText().getText().toString().trim();
 
                     //            trim the first zero here
                     if (userPhoneNo.charAt(0) == '0') {
@@ -103,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                     String userFullPhoneNo = countryCode + userPhoneNo;
                     Log.d(TAG, userFullPhoneNo);
 
-                    String userPwd = pwd.getEditText().getText().toString().trim();
 
 //                  firebase  database query... fetching the data using phonenumber
                     Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(userFullPhoneNo);
@@ -117,18 +118,23 @@ public class LoginActivity extends AppCompatActivity {
                                 phoneNum.setError(null);
                                 phoneNum.setErrorEnabled(false);
 
-//                                get the password that exists in the database.
+//                                get the password from database and ensure it matches the password in the database.
                                 String dbPwd = snapshot.child(userFullPhoneNo).child("password").getValue(String.class);
                                 if (dbPwd.equals(userPwd)) {
                                     pwd.setError(null);
                                     pwd.setErrorEnabled(false);
 
-////                                    test if the data is fetching properly
-//                                    String name = snapshot.child(userFullPhoneNo).child("name").getValue(String.class);
-//                                    String email = snapshot.child(userFullPhoneNo).child("email").getValue(String.class);
-//                                    String pNum = snapshot.child(userFullPhoneNo).child("phoneNumber").getValue(String.class);
+////                                   get the remaining data from the database
+                                    String name = snapshot.child(userFullPhoneNo).child("name").getValue(String.class);
+                                    String email = snapshot.child(userFullPhoneNo).child("email").getValue(String.class);
+                                    String pNum = snapshot.child(userFullPhoneNo).child("phoneNumber").getValue(String.class);
 
 //                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
+//
+//                                    Create a Session
+                                    SessionManager sessionManager = new SessionManager(LoginActivity.this);
+//                                  create login session by adding data into shared preferences
+                                    sessionManager.createLoginSession(name, email, pNum, dbPwd);
 
                                     Intent intent = new Intent(LoginActivity.this, TestActivity.class);
                                     startActivity(intent);
@@ -203,10 +209,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-//    observer pattern
+    //    observer pattern
 //    register for network broadcast receiver
     protected void registerNetworkBroadcast() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
     }
@@ -214,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void unregisterNetwork() {
         try {
             unregisterReceiver(broadcastReceiver);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }

@@ -65,27 +65,27 @@ public class SplashActivity extends AppCompatActivity {
                 boolean  isFirstTime = onBoardingScreen.getBoolean("firstTime", true);
 
 //              ensure user enters the onboarding once
-//                if(isFirstTime) {
-//                    SharedPreferences.Editor editor = onBoardingScreen.edit();
-////                    set first time to false
-//                    editor.putBoolean("firstTime", false);
-////                    commot changes to shared preferences
-//                    editor.commit();
-//
-//                    Intent intent = new Intent(SplashActivity.this, OnBoarding.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//                else {
-//                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
+                if(isFirstTime) {
+                    SharedPreferences.Editor editor = onBoardingScreen.edit();
+//                    set first time to false
+                    editor.putBoolean("firstTime", false);
+//                    commit changes to shared preferences
+                    editor.commit();
 
-//                comment later and use shared preferences
                     Intent intent = new Intent(SplashActivity.this, OnBoarding.class);
                     startActivity(intent);
                     finish();
+                }
+                else {
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+////                comment later and use shared preferences
+//                    Intent intent = new Intent(SplashActivity.this, OnBoarding.class);
+//                    startActivity(intent);
+//                    finish();
 
 
             }

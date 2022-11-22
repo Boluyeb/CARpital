@@ -7,7 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ActivityOptions;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -50,6 +54,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private RelativeLayout progressBar;
 
+    //    Broadcast receiver to check internet connection
+    BroadcastReceiver broadcastReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirm_password);
         countryCodePicker = findViewById(R.id.country_code);
         progressBar = findViewById(R.id.progress_bar);
+        broadcastReceiver = new CheckConnectionReceiver();
 
 
 
@@ -86,8 +94,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void submitLogin(View view) {
 
+        //                check internet connection
+        registerNetworkBroadcast();
+
 //        validate all fields
-        if (!validateFields(name) | !validateFields(email) | !validateFields(phoneNumber) | !validateFields(password) | !validateFields(confirmPassword) | !validatePassword() | !validateEmail()) {
+        if (!validateFields(name) || !validateFields(email) || !validateFields(phoneNumber) || !validateFields(password) || !validateFields(confirmPassword) || !validatePassword() || !validateEmail()) {
             return;
         }
 
@@ -238,6 +249,27 @@ private boolean validateEmail() {
         }
     }
 
+    //    observer pattern
+//    register for network broadcast receiver
+    protected void registerNetworkBroadcast() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+    protected void unregisterNetwork() {
+        try {
+            unregisterReceiver(broadcastReceiver);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterNetwork();
+    }
 
 
 
