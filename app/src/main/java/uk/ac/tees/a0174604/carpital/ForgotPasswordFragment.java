@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,6 +36,7 @@ public class ForgotPasswordFragment extends Fragment {
     private TextInputLayout phoneNumber;
     private CountryCodePicker countryCodePicker;
     private Button nextBtn;
+    private RelativeLayout progressBar;
 
 
 
@@ -48,6 +50,7 @@ public class ForgotPasswordFragment extends Fragment {
         phoneNumber = rootView.findViewById(R.id.phoneNumber);
         countryCodePicker = rootView.findViewById(R.id.country_code);
         nextBtn = rootView.findViewById(R.id.nextBtn);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,7 @@ public class ForgotPasswordFragment extends Fragment {
                     phoneNumber.setError("This field is required");
                 }
                 else {
+                    progressBar.setVisibility(View.VISIBLE);
                     phoneNumber.setError(null);
                     phoneNumber.setErrorEnabled(false);
 
@@ -108,6 +112,7 @@ public class ForgotPasswordFragment extends Fragment {
                             }
                             else {
                                 phoneNumber.setError("This user doesn't exist");
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         }
 

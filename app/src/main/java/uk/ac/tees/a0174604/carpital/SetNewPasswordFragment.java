@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,7 @@ public class SetNewPasswordFragment extends Fragment {
     private TextInputLayout pwd;
     private TextInputLayout confirmPwd;
     private Button submitPwd;
+    private RelativeLayout progressBar;
 
 //    get phone number passed
     private String phoneNum;
@@ -93,6 +95,7 @@ public class SetNewPasswordFragment extends Fragment {
         pwd = rootView.findViewById(R.id.cred_pwd);
         confirmPwd = rootView.findViewById(R.id.cred_pwd_confirm);
         submitPwd = rootView.findViewById(R.id.submitBtn);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
 //        data from previous fragment
         phoneNum = getArguments().getString("phoneNo");
@@ -104,6 +107,7 @@ public class SetNewPasswordFragment extends Fragment {
                     return;
                 }
                 else{
+                    progressBar.setVisibility(View.VISIBLE);
 //                    get user input
                     String userNewPwd = pwd.getEditText().getText().toString().trim();
 

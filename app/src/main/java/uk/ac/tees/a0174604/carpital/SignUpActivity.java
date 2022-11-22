@@ -139,6 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
                         phoneNumber.setError(null);
                         phoneNumber.setErrorEnabled(false);
                         signupLayout.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
 
                         //            pass all fields from activity to otp fragment
                         Bundle bundle =  new Bundle();

@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -35,13 +39,17 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout pwd;
     private CountryCodePicker countryCodePicker;
 
-//    forgot password btn
+    //    forgot password btn
     private Button forgotBtn;
 
     //    log tag
     String TAG = SignUpActivity.class.getSimpleName();
-
+    //progress bar
     private RelativeLayout progressBar;
+
+//    Broadcast receiver to check internet connection
+    BroadcastReceiver broadcastReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +64,23 @@ public class LoginActivity extends AppCompatActivity {
         countryCodePicker = findViewById(R.id.country_code);
         forgotBtn = findViewById(R.id.forgot_password);
         progressBar = findViewById(R.id.progress_bar);
+        broadcastReceiver = new CheckConnectionReceiver();
+
 
         forgotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
 
 
-
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+//                check internet connection
+                registerNetworkBroadcast();
 
                 if (!validateFields(phoneNum) || !validateFields(pwd)) {
                     return;
@@ -104,13 +113,13 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                            check if data exists
-                            if(snapshot.exists()){
+                            if (snapshot.exists()) {
                                 phoneNum.setError(null);
                                 phoneNum.setErrorEnabled(false);
 
 //                                get the password that exists in the database.
                                 String dbPwd = snapshot.child(userFullPhoneNo).child("password").getValue(String.class);
-                                if(dbPwd.equals(userPwd)){
+                                if (dbPwd.equals(userPwd)) {
                                     pwd.setError(null);
                                     pwd.setErrorEnabled(false);
 
@@ -121,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
 
-                                    Intent intent = new Intent(LoginActivity.this,TestActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, TestActivity.class);
                                     startActivity(intent);
                                     finish();
 
@@ -192,5 +201,27 @@ public class LoginActivity extends AppCompatActivity {
             inputVal.setErrorEnabled(false);
             return true;
         }
+    }
+
+//    observer pattern
+//    register for network broadcast receiver
+    protected void registerNetworkBroadcast() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+    protected void unregisterNetwork() {
+        try {
+            unregisterReceiver(broadcastReceiver);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterNetwork();
     }
 }
