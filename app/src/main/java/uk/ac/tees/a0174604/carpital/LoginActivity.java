@@ -14,11 +14,14 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,23 +30,27 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
     TextView login_welcome;
     Button goSignupBtn;
-
+    private CheckBox rememberMe;
 
     //    fields for validation
     private TextInputLayout phoneNum;
     private TextInputLayout pwd;
     private CountryCodePicker countryCodePicker;
+    private TextInputEditText phoneNumEdit;
+    private TextInputEditText pwdEdit;
 
     //    forgot password btn
     private Button forgotBtn;
 
     //    log tag
-    String TAG = SignUpActivity.class.getSimpleName();
+    String TAG = LoginActivity.class.getSimpleName();
     //progress bar
     private RelativeLayout progressBar;
 
@@ -60,11 +67,26 @@ public class LoginActivity extends AppCompatActivity {
         login_welcome = findViewById(R.id.login_welcome);
         goSignupBtn = findViewById(R.id.go_signup);
         phoneNum = findViewById(R.id.phoneNumber);
+        phoneNumEdit = findViewById(R.id.phone_input);
         pwd = findViewById(R.id.password);
+        pwdEdit = findViewById(R.id.pwd_input);
+
         countryCodePicker = findViewById(R.id.country_code);
         forgotBtn = findViewById(R.id.forgot_password);
         progressBar = findViewById(R.id.progress_bar);
         broadcastReceiver = new CheckConnectionReceiver();
+        rememberMe = findViewById(R.id.remeber_check);
+
+//        check if phone number and password is already stored in shared preference phone number and if so get it and display it
+        SessionManager sessionManagerFind = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBERME);
+        if(sessionManagerFind.checkRemember()){
+            HashMap<String,String> rememberDetails = sessionManagerFind.getDetailsFromRememberSession();
+            phoneNumEdit.setText(rememberDetails.get(SessionManager.KEY_REMEMBERPHONENUMBER));
+            pwdEdit.setText(rememberDetails.get(SessionManager.KEY_REMEMBERPWD));
+            Log.d(TAG,"found me");
+            Log.d(TAG,rememberDetails.get(SessionManager.KEY_REMEMBERPWD));
+
+        }
 
 
         forgotBtn.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +125,14 @@ public class LoginActivity extends AppCompatActivity {
 
 //                    join the country code with the phone number
                     String userFullPhoneNo = countryCode + userPhoneNo;
-                    Log.d(TAG, userFullPhoneNo);
 
+
+                    if(rememberMe.isChecked()){
+                        SessionManager sessionManagerRemember = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBERME);
+//                        store in shared preference
+                        sessionManagerRemember.createRemeberMeSession(userPhoneNo, userPwd);
+                        Log.d(TAG, "doing this");
+                    }
 
 //                  firebase  database query... fetching the data using phonenumber
                     Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(userFullPhoneNo);
@@ -132,11 +160,11 @@ public class LoginActivity extends AppCompatActivity {
 //                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
 //
 //                                    Create a Session
-                                    SessionManager sessionManager = new SessionManager(LoginActivity.this);
+                                    SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_USERSESSION);
 //                                  create login session by adding data into shared preferences
                                     sessionManager.createLoginSession(name, email, pNum, dbPwd);
 
-                                    Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                     finish();
 

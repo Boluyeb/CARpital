@@ -19,7 +19,7 @@ public class TestActivity extends AppCompatActivity {
         textContent = findViewById(R.id.test_text);
 
 //         get session content as session already created when logged in
-        SessionManager sessionManager = new SessionManager(this);
+        SessionManager sessionManager = new SessionManager(this, SessionManager.SESSION_USERSESSION);
         HashMap<String,String> userDetails = sessionManager.getUsersDetailFromSession();
 
 //        get session values using

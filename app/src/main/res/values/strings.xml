@@ -69,6 +69,11 @@
     <string name="cancel_btn">CANCEL</string>
     <string name="connect_btn">CONNECT</string>
     <string name="no_internet">No Internet</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="sell">Sell</string>
+    <string name="salvage_report">Report</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
