@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         broadcastReceiver = new CheckConnectionReceiver();
         rememberMe = findViewById(R.id.remeber_check);
+//        countryCodePicker.setCountryPreference("+44");
 
 //        check if phone number and password is already stored in shared preference phone number and if so get it and display it
         SessionManager sessionManagerFind = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBERME);
@@ -121,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                    get the country code
                     String countryCode = countryCodePicker.getSelectedCountryCodeWithPlus();
+
                     Log.d(TAG, countryCode);
 
 //                    join the country code with the phone number

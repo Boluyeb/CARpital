@@ -74,6 +74,8 @@
     <string name="sell">Sell</string>
     <string name="salvage_report">Report</string>
     <string name="settings">Settings</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="find_a_car">Find a Car</string>
 
 
 </resources>

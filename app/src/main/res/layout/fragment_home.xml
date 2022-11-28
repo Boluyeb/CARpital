@@ -1,19 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment"
-    >
+    android:scrollbars="none">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Home Fragment"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/seed"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/day_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/good_morning"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/seed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bolu"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/day_text"
+                app:layout_constraintTop_toBottomOf="@+id/day_text" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/good_deal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/user_name"
+                app:layout_constraintTop_toBottomOf="@+id/user_name"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/homegreycontainer"
+                android:padding="20dp"
+                >
+
+                <TextView
+                    android:id="@+id/save_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save up to"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/percent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50%"
+                    app:layout_constraintStart_toStartOf="@id/save_text"
+                    app:layout_constraintTop_toBottomOf="@id/save_text"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_marginStart="20dp"
+                    android:textColor="#000000"
+                   />
+
+                <TextView
+                    android:id="@+id/used_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="on used cars"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/percent_text"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#000000"/>
+
+                <ImageView
+                    android:id="@+id/pic_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/bmw"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/used_text"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/search_box"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="20dp"
+                android:inputType="textPersonName"
+                android:hint="@string/find_a_car"
+                android:paddingStart="20dp"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="10dp"
+                android:textStyle="italic"
+                android:background="@drawable/search_edit_background"
+                android:ems="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/good_deal" />
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width=""-->
+<!--                android:layout_height="">-->
+
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Home Fragment"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/seed"/>-->
+    </LinearLayout>
+
+
+
+</ScrollView>

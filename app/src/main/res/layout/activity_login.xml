@@ -70,13 +70,13 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 app:ccp_autoDetectCountry="true"
+                app:ccp_rememberLastSelection="true"
                 app:ccp_showFlag="true"
                 app:ccp_showNameCode="false"
                 app:ccp_showFullName="false"
                 app:ccp_showPhoneCode="true"
                 android:layout_marginTop="5dp"
-
-
+                app:ccp_countryPreference="GB,US,NG"
                 />
 
             <!--                android:background="@drawable/black_border"-->
