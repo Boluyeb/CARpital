@@ -54,6 +54,17 @@ dependencies {
 //    insert dependency for bottom navigation
 //    implementation 'com.google.android.material:material:1.8.0-alpha03'
 
+//    insert dependencies for recycler view sliddr
+//    implementation 'com.google.android.material:1.7.0-beta01'
+//    implementation 'com.github.bumptech.glide:glide:4.8.0'
+//    implementation 'com.google.code.gson:gson:2.8.7'
+
+//    using glide to load images
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.google.code.gson:gson:2.8.7'
+
 
 
 

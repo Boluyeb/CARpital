@@ -119,12 +119,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/good_deal" />
 
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:layout_width=""-->
-<!--                android:layout_height="">-->
+            <TextView
+                android:id="@+id/brands_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop by Brand"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/search_box"
+                app:layout_constraintTop_toBottomOf="@+id/search_box" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_brand"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brands_txt" />
 
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+            <TextView
+                android:id="@+id/recently_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recently Added"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/search_box"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_brand" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_recent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recently_txt" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
