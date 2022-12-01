@@ -1,5 +1,6 @@
 package uk.ac.tees.a0174604.carpital;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +35,12 @@ public class HomeFragment extends Fragment {
 
     private View rootView;
 
+//    hooks
+    private TextView timeGreeting;
+    private TextView userName;
+
+
+
     private HomeFragment(){
 
     }
@@ -40,10 +51,20 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
          rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+         timeGreeting = rootView.findViewById(R.id.day_text);
+         userName = rootView.findViewById(R.id.user_name);
+
 //         recycler view for brandlist
         recyclerViewBrandList();
 
         recyclerViewRecent();
+
+//        get time of the day
+        getTimeOfDay();
+
+//        start session
+      sessionInfo();
+
 
 
         return rootView;
@@ -56,7 +77,7 @@ public class HomeFragment extends Fragment {
 
         ArrayList<RecentDomain> recentList = new ArrayList<>();
         recentList.add(new RecentDomain("Audi", "S5", "audi", "£35,000", "Quattro"));
-        recentList.add(new RecentDomain("Mercedes Benz", "S560", "benz", "£105,000", "4-Matic"));
+        recentList.add(new RecentDomain("Mercedes", "S560", "benz", "£105,000", "4-Matic"));
         recentList.add(new RecentDomain("Porsche", "911", "porshe", "£110,000", "Convertible"));
         recentList.add(new RecentDomain("Rolls Royce", "Cullinan", "rr", "£560,000", "V12"));
         recentList.add(new RecentDomain("Volkswagen", "Golf", "vw", "£20,000", "TDI"));
@@ -74,11 +95,13 @@ public class HomeFragment extends Fragment {
 
 //        pass the java class for the
         ArrayList<BrandDomain> brandList = new ArrayList<>();
-        brandList.add(new BrandDomain("Mercedes","benz_log"));
-        brandList.add(new BrandDomain("BMW","bmw_log"));
+        brandList.add(new BrandDomain("Mercedes","benz_logo"));
+        brandList.add(new BrandDomain("BMW","bmw_logo"));
         brandList.add(new BrandDomain("Toyota","toyota_log"));
-        brandList.add(new BrandDomain("Peugeot","peugeot_log"));
+        brandList.add(new BrandDomain("Peugeot","peugeot_logo"));
         brandList.add(new BrandDomain("Audi","audi_log"));
+        brandList.add(new BrandDomain("Jaguar","jaguar_logo"));
+        brandList.add(new BrandDomain("Mazda","mazda_logo"));
 
 //        adapter
         brandAdapter = new BrandAdapter(brandList);
@@ -96,4 +119,31 @@ public class HomeFragment extends Fragment {
 
     }
 
+//    get time and date
+   private void getTimeOfDay(){
+       Calendar c = Calendar.getInstance();
+       int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+       if(timeOfDay >= 0 && timeOfDay < 12){
+           timeGreeting.setText(getResources().getString(R.string.good_morning));
+       }else if(timeOfDay >= 12 && timeOfDay < 16){
+           timeGreeting.setText(getResources().getString(R.string.good_afternoon));
+       }else if(timeOfDay >= 16 && timeOfDay < 21){
+           timeGreeting.setText(getResources().getString(R.string.good_evening));
+       }else if(timeOfDay >= 21 && timeOfDay < 24){
+           timeGreeting.setText(getResources().getString(R.string.good_night));
+       }
+
+   }
+
+   //      get session info
+    private void sessionInfo(){
+        //        start session
+        //         get session content as session already created when logged in
+        SessionManager sessionManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
+
+        HashMap<String,String> userDetails = sessionManager.getUsersDetailFromSession();
+        String name = userDetails.get(SessionManager.KEY_NAME);
+        userName.setText(name);
+    }
 }

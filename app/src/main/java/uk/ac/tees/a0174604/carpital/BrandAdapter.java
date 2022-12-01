@@ -32,26 +32,26 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull BrandAdapter.ViewHolder holder, int position) {
         holder.brandName.setText(brandDomains.get(position).getTitle());
-        String picUrl="";
-        switch (position) {
-            case 0:
-                picUrl="benz_log";
-                break;
-            case 1:
-                picUrl="bmw_log";
-                break;
-            case 2:
-                picUrl="toyota_log";
-                break;
-            case 3:
-                picUrl="peugeot_log";
-                break;
-            case 4:
-                picUrl="audi_log";
-                break;
-        }
+//        String picUrl="";
+//        switch (position) {
+//            case 0:
+//                picUrl="benz_log";
+//                break;
+//            case 1:
+//                picUrl="bmw_log";
+//                break;
+//            case 2:
+//                picUrl="toyota_log";
+//                break;
+//            case 3:
+//                picUrl="peugeot_log";
+//                break;
+//            case 4:
+//                picUrl="audi_log";
+//                break;
+//        }
 
-        int drawableResourceId = holder.itemView.getContext().getResources().getIdentifier(picUrl, "drawable", holder.itemView.getContext().getPackageName());
+        int drawableResourceId = holder.itemView.getContext().getResources().getIdentifier(brandDomains.get(position).getPicture(), "drawable", holder.itemView.getContext().getPackageName());
         Glide.with(holder.itemView.getContext()).load(drawableResourceId).into(holder.brandPicture);
     }
 

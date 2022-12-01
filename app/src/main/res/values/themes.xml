@@ -35,4 +35,17 @@
 
         <item name="android:windowContentTransitions">true</item>
     </style>
+
+    <style name="CustomCardview1" parent="CardView">
+        <item name="cardBackgroundColor">#FFFFFF</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CustomCardview2" parent="CardView">
+        <item name="cardBackgroundColor">#F3931F</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
 </resources>

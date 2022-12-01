@@ -7,12 +7,21 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -32,6 +41,40 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+////start
+//        (new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String where = URLEncoder.encode("{" +
+//                            "    \"Model\": {" +
+//                            "        \"$exists\": true" +
+//                            "    }" +
+//                            "}", "utf-8");
+//                    URL url = new URL("https://parseapi.back4app.com/classes/Car_Model_List?count=1&limit=0&where=" + where);
+//                    HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+//                    urlConnection.setRequestProperty("X-Parse-Application-Id", "hlhoNKjOvEhqzcVAJ1lxjicJLZNVv36GdbboZj3Z"); // This is the fake app's application id
+//                    urlConnection.setRequestProperty("X-Parse-Master-Key", "SNMJJF0CZZhTPhLDIqGhTlUNV9r60M2Z5spyWfXW"); // This is the fake app's readonly master key
+//                    try {
+//                        BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+//                        StringBuilder stringBuilder = new StringBuilder();
+//                        String line;
+//                        while ((line = reader.readLine()) != null) {
+//                            stringBuilder.append(line);
+//                        }
+//                        JSONObject data = new JSONObject(stringBuilder.toString()); // Here you have the data that you need
+//                        Log.d("MainActivity", data.toString(2));
+//                    } finally {
+//                        urlConnection.disconnect();
+//                    }
+//                } catch (Exception e) {
+//                    Log.e("MainActivity", e.toString());
+//                }
+//            }
+//        })).start();
+//
+////        end
 
         //        change status bar color and make blend
         if (Build.VERSION.SDK_INT >= 21) {

@@ -75,7 +75,16 @@
     <string name="salvage_report">Report</string>
     <string name="settings">Settings</string>
     <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
+    <string name="good_night">Good Night</string>
     <string name="find_a_car">Find a Car</string>
+    <string name="settings_and_profile">Settings</string>
+    <string name="deactivate_account">Deactivate Account</string>
+    <string name="logout">Logout</string>
+    <string name="notifications">Notifications</string>
+    <string name="change_password">Change Password</string>
+    <string name="edit_profile">Edit Profile</string>
 
 
 </resources>

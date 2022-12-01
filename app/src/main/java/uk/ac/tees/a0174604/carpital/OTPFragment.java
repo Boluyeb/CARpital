@@ -180,7 +180,7 @@ public class OTPFragment extends Fragment {
 //                                store new users
                                 storeNewUsersData();
 
-                                Intent intent =  new Intent(getActivity(), SignupSecondActivity.class);
+                                Intent intent =  new Intent(getActivity(), LoginActivity.class);
                                 startActivity(intent);
 
 //                            close activity

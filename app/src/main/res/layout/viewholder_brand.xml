@@ -2,24 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="80dp"
-    android:layout_height="100dp"
-    android:padding="10dp"
-
-    android:elevation="3dp"
-    android:layout_margin="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
     android:id="@+id/main_layout"
     >
 
-    <ImageView
-        android:id="@+id/brand_logo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/benz_log"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/image_desc"
+        >
+
+    <ImageView
+        android:id="@+id/brand_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/bmw_log"
         />
 
     <TextView
@@ -27,10 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"/>
+        />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
