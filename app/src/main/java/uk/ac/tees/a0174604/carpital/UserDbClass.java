@@ -7,17 +7,21 @@ public class UserDbClass {
     private String email;
     private String phoneNumber;
     private String password;
+    private String profilePicture;
 
     public UserDbClass() {
 
     }
 
-    public UserDbClass(String name, String email, String phoneNumber, String password) {
+    public UserDbClass(String name, String email, String phoneNumber, String password, String profilePicture) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.profilePicture = profilePicture;
     }
+
+
 
     public String getName() {
         return name;
@@ -49,5 +53,13 @@ public class UserDbClass {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture() {
+        this.profilePicture = profilePicture;
     }
 }

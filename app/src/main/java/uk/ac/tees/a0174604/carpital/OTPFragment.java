@@ -238,7 +238,7 @@ public class OTPFragment extends Fragment {
         DatabaseReference reference = database.getReference("Users");
 
 //        add new users use the UserDbClass
-        UserDbClass addNewUser = new UserDbClass(name,email,phoneNum,pwd);
+        UserDbClass addNewUser = new UserDbClass(name,email,phoneNum,pwd,"");
 
 //        set value and add user id as phone number
         reference.child(phoneNum).setValue(addNewUser);

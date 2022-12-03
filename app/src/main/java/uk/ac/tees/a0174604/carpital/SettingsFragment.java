@@ -3,13 +3,19 @@ package uk.ac.tees.a0174604.carpital;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +31,11 @@ public class SettingsFragment extends Fragment {
     private String name;
     private String phoneNumber;
 
+//    intent message
+    public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.EditProfile";
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,6 +45,26 @@ public class SettingsFragment extends Fragment {
 //        set the user name to appear on the profile page
         TextView userName = rootView.findViewById(R.id.user_name);
         TextView userPhone = rootView.findViewById(R.id.user_phone);
+
+//       edit profile
+        ConstraintLayout editProfile = rootView.findViewById(R.id.edit_profile_btn);
+
+
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                start custom settings activity
+                Intent intent = new Intent(getActivity(),CustomSettingsActivity.class);
+//                pass message to the activity to know the custom settings to launch
+                String message = "editProfile";
+                intent.putExtra(EXTRA_MESSAGE,message);
+//                start the activity
+                startActivity(intent);
+
+            }
+        });
+
 
 //        get user details
         SessionManager sessionManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
@@ -57,7 +88,8 @@ public class SettingsFragment extends Fragment {
 //                check if logged in first.. check if preference exists
                 if(logoutManager.checkLogin()){
                     logoutManager.logoutUserFromSession();
-                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getActivity(),LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 //                   end activity
                     getActivity().finish();
@@ -76,4 +108,5 @@ public class SettingsFragment extends Fragment {
         return unique;
 
     }
+
 }

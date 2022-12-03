@@ -85,6 +85,7 @@
     <string name="notifications">Notifications</string>
     <string name="change_password">Change Password</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="update">UPDATE</string>
 
 
 </resources>

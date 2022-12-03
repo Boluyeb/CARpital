@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SettingsFragment">
+    tools:context=".SettingsFragment"
+    >
 
 
     <LinearLayout
@@ -12,6 +13,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_profile_frame"
+            />
+
+    <LinearLayout
+        android:id="@+id/settings_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -43,13 +58,26 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+
+        <androidx.cardview.widget.CardView
             android:layout_marginTop="32dp"
-            android:id="@+id/user_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/user_img"/>
+            app:cardCornerRadius="100dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/user_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+
+                android:src="@drawable/user_img"
+                />
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <TextView
             android:id="@+id/user_name"
@@ -83,6 +111,7 @@
             android:elevation="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_profile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -254,6 +283,6 @@
 
 </LinearLayout>
 
-
+    </LinearLayout>
 
 </ScrollView>
