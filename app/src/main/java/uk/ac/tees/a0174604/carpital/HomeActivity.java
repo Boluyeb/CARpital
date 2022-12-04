@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,6 +23,8 @@ import com.google.firebase.database.core.view.Change;
 public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+//    to close all activities
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,21 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+//        broadcast receiver to end activity
+//        IntentFilter filter = new IntentFilter();
+//
+//        filter.addAction("com.example.CUSTOM_INTENT");
+//        registerReceiver(receiver, filter);
+//        receiver = new BroadcastReceiver() {
+//
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.d("==>","Broadcast Recieved.");
+//                finish();
+//
+//            }
+//        };
     }
 
 //    set fragment
@@ -70,5 +92,9 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+//    public void finish() {
+//        super.finish();
+//    }
 
 }

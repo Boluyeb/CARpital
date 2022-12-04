@@ -1,6 +1,7 @@
 package uk.ac.tees.a0174604.carpital;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
@@ -30,9 +33,17 @@ public class SettingsFragment extends Fragment {
     private static SettingsFragment unique;
     private String name;
     private String phoneNumber;
+    private String profileImage;
+    private String email;
+    private ImageView displayImage;
 
 //    intent message
     public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.EditProfile";
+    public static final String EXTRA_PHONE = "Carpital.SettingsFragment.phoneNumber";
+    public static final String EXTRA_EMAIL= "Carpital.SettingsFragment.email";
+    public static final String EXTRA_PROFILEIMG= "Carpital.SettingsFragment.profileImg";
+    public static final String EXTRA_NAME= "Carpital.SettingsFragment.name";
+
 
 
 
@@ -45,6 +56,9 @@ public class SettingsFragment extends Fragment {
 //        set the user name to appear on the profile page
         TextView userName = rootView.findViewById(R.id.user_name);
         TextView userPhone = rootView.findViewById(R.id.user_phone);
+
+        displayImage = rootView.findViewById(R.id.user_photo);
+
 
 //       edit profile
         ConstraintLayout editProfile = rootView.findViewById(R.id.edit_profile_btn);
@@ -59,6 +73,10 @@ public class SettingsFragment extends Fragment {
 //                pass message to the activity to know the custom settings to launch
                 String message = "editProfile";
                 intent.putExtra(EXTRA_MESSAGE,message);
+                intent.putExtra(EXTRA_PHONE, phoneNumber);
+                intent.putExtra(EXTRA_EMAIL, email);
+                intent.putExtra(EXTRA_PROFILEIMG, profileImage);
+                intent.putExtra(EXTRA_NAME,name);
 //                start the activity
                 startActivity(intent);
 
@@ -73,6 +91,20 @@ public class SettingsFragment extends Fragment {
             HashMap<String,String> userDetails = sessionManager.getUsersDetailFromSession();
              name = userDetails.get(SessionManager.KEY_NAME);
              phoneNumber = userDetails.get(SessionManager.KEY_PHONENUMBER);
+             profileImage = userDetails.get(SessionManager.KEY_PROFILEIMG);
+             email = userDetails.get(SessionManager.KEY_EMAIL);
+
+
+//load image using glide
+             if(!profileImage.isEmpty()){
+                 Glide.with(displayImage.getContext())
+                         .load(profileImage)
+                         .placeholder(R.drawable.user_img)
+                         .centerCrop()
+                         .error(R.drawable.user_img)
+                         .into(displayImage);
+
+             }
 
              userName.setText(name);
              userPhone.setText(phoneNumber);

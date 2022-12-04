@@ -158,13 +158,14 @@ public class LoginActivity extends AppCompatActivity {
                                     String name = snapshot.child(userFullPhoneNo).child("name").getValue(String.class);
                                     String email = snapshot.child(userFullPhoneNo).child("email").getValue(String.class);
                                     String pNum = snapshot.child(userFullPhoneNo).child("phoneNumber").getValue(String.class);
+                                    String profileImg = snapshot.child(userFullPhoneNo).child("profilePicture").getValue(String.class);
 
 //                                    Toast.makeText(LoginActivity.this, name+"\n"+email+"\n"+pNum, Toast.LENGTH_LONG).show();
 //
 //                                    Create a Session
                                     SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_USERSESSION);
 //                                  create login session by adding data into shared preferences
-                                    sessionManager.createLoginSession(name, email, pNum, dbPwd);
+                                    sessionManager.createLoginSession(name, email, pNum, dbPwd, profileImg);
 
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     startActivity(intent);

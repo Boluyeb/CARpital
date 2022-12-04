@@ -24,6 +24,8 @@ public class SessionManager {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PHONENUMBER = "phoneNum";
     public static final String KEY_PWD = "pwd";
+    public static final String KEY_PROFILEIMG = "profileImg";
+
 
 //    remember me preference variables.
 //    check if this has been stored or not in the shared prefrence
@@ -41,12 +43,13 @@ public class SessionManager {
 
 //login session methods
 
-    public void createLoginSession(String name, String email, String phoneNum, String pwd) {
+    public void createLoginSession(String name, String email, String phoneNum, String pwd, String profileImg) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PHONENUMBER, phoneNum);
         editor.putString(KEY_PWD, pwd);
+        editor.putString(KEY_PROFILEIMG, profileImg);
 
 //        commit changes to editor
         editor.commit();
@@ -59,6 +62,7 @@ public class SessionManager {
         userData.put(KEY_EMAIL, usersSession.getString(KEY_EMAIL, null));
         userData.put(KEY_PHONENUMBER, usersSession.getString(KEY_PHONENUMBER, null));
         userData.put(KEY_PWD, usersSession.getString(KEY_PWD, null));
+        userData.put(KEY_PROFILEIMG, usersSession.getString(KEY_PROFILEIMG, null));
         return userData;
     }
 
