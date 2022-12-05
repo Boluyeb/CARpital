@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SellFragment">
+    tools:context=".SellFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Sell Fragment"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/md_theme_dark_error"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e1e1e1">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bmw_grey" />
+    </RelativeLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_your_car"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+</ScrollView>

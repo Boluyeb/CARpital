@@ -36,9 +36,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
@@ -137,32 +140,47 @@ public class EditProfileFragment extends Fragment {
                 changeUserEmail();
                 uploadImg();
 
+//                end user session as values have changed
                 sessionManager.logoutUserFromSession();
-                FirebaseAuth.getInstance().signOut();
 
-//                getActivity().finish();
 
-//                Intent local = new Intent();
-//                local.setAction("com.example.CUSTOM_INTENT");
-//                sendBroadcast(local);
+//                SessionManager newManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
+//
+////update changes from db to session
+//                Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
+//
+//                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if (snapshot.exists()) {
+//                            String nameNew = snapshot.child(phoneNumber).child("name").getValue(String.class);
+//                            String emailNew = snapshot.child(phoneNumber).child("email").getValue(String.class);
+//                            String pwd = snapshot.child(phoneNumber).child("password").getValue(String.class);
+//                            String profileImgNew = snapshot.child(phoneNumber).child("profilePicture").getValue(String.class);
+//
+//                            newManager.createLoginSession(nameNew, emailNew, phoneNumber, pwd, profileImgNew);
+//
+//                            Intent intent = new Intent(getActivity(),HomeActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            startActivity(intent);
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
-//                getActivity().finishAffinity();
-
-//                Intent intent = new Intent(getActivity(),LoginActivity.class);
-////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-//                startActivity(intent);
-
+//working code
                 Intent intent = new Intent(getActivity(),LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 
-
-
-
-
-
-
-
+//                Intent intent = new Intent(getActivity(),HomeActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
             }
         });
 

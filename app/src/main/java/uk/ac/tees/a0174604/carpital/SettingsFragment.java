@@ -78,7 +78,15 @@ public class SettingsFragment extends Fragment {
                 intent.putExtra(EXTRA_PROFILEIMG, profileImage);
                 intent.putExtra(EXTRA_NAME,name);
 //                start the activity
+
+//                working code
                 startActivity(intent);
+
+//                not working
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//               startActivity(intent);
+
+
 
             }
         });
