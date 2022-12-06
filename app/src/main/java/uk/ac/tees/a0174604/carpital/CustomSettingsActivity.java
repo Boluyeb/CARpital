@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class CustomSettingsActivity extends AppCompatActivity {
 
@@ -36,10 +37,40 @@ public class CustomSettingsActivity extends AppCompatActivity {
 
 //        get message from the intent
         String message = intent.getStringExtra(SettingsFragment.EXTRA_MESSAGE);
+        String phoneNumber = intent.getStringExtra(SettingsFragment.EXTRA_PHONE);
+
 
         if (message.equals("editProfile")){
             EditProfileFragment editProfileFragment = EditProfileFragment.newInstance();
             setFragment(editProfileFragment);
+        }
+        else if (message.equals("changePassword")){
+//            OTPFragment otpFragment = OTPFragment.getInstance();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("phoneNo",phoneNumber);
+////                                to know the fragment it is coming from
+//            bundle.putString("whichActivity",HomeActivity.class.getSimpleName());
+//            setFragment(otpFragment);
+//            Toast.makeText(CustomSettingsActivity.this,"This is working", Toast.LENGTH_SHORT).show();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("phoneNo",phoneNumber);
+//                                to know the fragment it is coming from
+            bundle.putString("whichActivity",CustomSettingsActivity.class.getSimpleName());
+            OTPFragment otpFragment = OTPFragment.getInstance();
+//
+//                              send the bundle
+            otpFragment.setArguments(bundle);
+//
+//                                set fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_holder, otpFragment).addToBackStack(otpFragment.toString()).commit();
+
+//            do session manager for logout and do firebase logout
+//            SessionManager sessionManager =
+
+
         }
 
 

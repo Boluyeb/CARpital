@@ -36,6 +36,7 @@ public class SettingsFragment extends Fragment {
     private String profileImage;
     private String email;
     private ImageView displayImage;
+    String message;
 
 //    intent message
     public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.EditProfile";
@@ -43,6 +44,7 @@ public class SettingsFragment extends Fragment {
     public static final String EXTRA_EMAIL= "Carpital.SettingsFragment.email";
     public static final String EXTRA_PROFILEIMG= "Carpital.SettingsFragment.profileImg";
     public static final String EXTRA_NAME= "Carpital.SettingsFragment.name";
+
 
 
 
@@ -63,6 +65,19 @@ public class SettingsFragment extends Fragment {
 //       edit profile
         ConstraintLayout editProfile = rootView.findViewById(R.id.edit_profile_btn);
 
+        ConstraintLayout changePassword = rootView.findViewById(R.id.change_password);
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CustomSettingsActivity.class);
+                message = "changePassword";
+                intent.putExtra(EXTRA_MESSAGE, message);
+                intent.putExtra(EXTRA_PHONE, phoneNumber);
+                startActivity(intent);
+            }
+        });
+
 
 
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +86,7 @@ public class SettingsFragment extends Fragment {
 //                start custom settings activity
                 Intent intent = new Intent(getActivity(),CustomSettingsActivity.class);
 //                pass message to the activity to know the custom settings to launch
-                String message = "editProfile";
+                message = "editProfile";
                 intent.putExtra(EXTRA_MESSAGE,message);
                 intent.putExtra(EXTRA_PHONE, phoneNumber);
                 intent.putExtra(EXTRA_EMAIL, email);
@@ -81,6 +96,7 @@ public class SettingsFragment extends Fragment {
 
 //                working code
                 startActivity(intent);
+
 
 //                not working
 //                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);

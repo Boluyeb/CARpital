@@ -1,5 +1,6 @@
 package uk.ac.tees.a0174604.carpital;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +42,20 @@ public class RecoverPasswordSuccessFragment extends Fragment {
         goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
+                SessionManager logoutManager = new SessionManager(getActivity(),SessionManager.SESSION_USERSESSION);
+//                check if logged in first.. check if preference exists
+                if(logoutManager.checkLogin()) {
+                    logoutManager.logoutUserFromSession();
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+//                   end activity
+                else{
+                        getActivity().finish();
+                    }
+
+
             }
         });
 

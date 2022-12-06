@@ -147,7 +147,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/search_box"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_brand" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_brand"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_recent"
@@ -155,7 +156,8 @@
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recently_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/recently_txt"
+                android:layout_marginBottom="100dp"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

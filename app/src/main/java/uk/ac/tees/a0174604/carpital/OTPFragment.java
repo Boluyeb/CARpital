@@ -206,6 +206,25 @@ public class OTPFragment extends Fragment {
                                 fragmentTransaction.replace(R.id.fragment_holder, setNewPasswordFragment).addToBackStack(setNewPasswordFragment.toString()).commit();
 
                             }
+                            else if (whichActivity.equals("CustomSettingsActivity")){
+                                Bundle bundle = new Bundle();
+                                bundle.putString("phoneNo",phoneNum);
+//                                to know the fragment it is coming from
+                                bundle.putString("whichActivity",ForgotPasswordActivity.class.getSimpleName());
+
+//                                                              instantiate next fragment
+
+                                SetNewPasswordFragment setNewPasswordFragment = SetNewPasswordFragment.newInstance();
+
+//                              send the bundle
+                                setNewPasswordFragment.setArguments(bundle);
+//
+//                                set fragment
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.fragment_holder, setNewPasswordFragment).addToBackStack(setNewPasswordFragment.toString()).commit();
+
+                            }
 
 //
 
