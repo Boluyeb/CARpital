@@ -123,14 +123,14 @@
 
 
 
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="${MAPS_API_KEY}" />-->
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD-XtwAkXvdcPtk31l2m9H1FFXE87TRBrY"
-            />
+            android:value="${MAPS_API_KEY}" />
+
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyD-XtwAkXvdcPtk31l2m9H1FFXE87TRBrY"-->
+<!--            />-->
 
         <meta-data
             android:name="preloaded_fonts"
