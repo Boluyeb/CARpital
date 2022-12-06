@@ -4,8 +4,8 @@
         android:title="@string/home"
         android:icon="@drawable/ic_home"/>
     <item android:id="@+id/miSearch"
-        android:title="@string/search"
-        android:icon="@drawable/ic_search"/>
+        android:title="Map"
+        android:icon="@drawable/map_icon"/>
     <item android:id="@+id/miSell"
         android:title="@string/sell"
         android:icon="@drawable/icon_sell"/>

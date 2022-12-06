@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SellFragment"
-    >
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,19 +15,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e1e1e1">
+        android:background="#e3e3ec"
+        >
 
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/bmw_grey" />
+            android:src="@drawable/bmw" />
     </RelativeLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:elevation="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="3dp">
 
 
         <TextView
@@ -38,7 +43,178 @@
             android:textSize="24sp"
             />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/add_vehicle_listing_in_a_matter_of_minutes"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/car_make"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_car_make"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/car_model"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_car_model"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/car_year"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_car_manufacture_year"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/car_cate"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_car_category"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/car_location"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/choose_location"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="20dp"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:hint="@string/amount"
+                app:endIconMode="clear_text"
+                app:endIconTint="#000000"
+                app:startIconDrawable="@drawable/ic_cost"
+                style="?attr/textInputFilledStyle"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/kindly_add_car_photo_from_gallery"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/vehicle_img_item"
+
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="#cccccc"
+                    android:text="@string/choose_photo"
+                    android:textColor="#000000"
+                    android:padding="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
         </LinearLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:text="@string/submit_listing"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:layout_marginBottom="100dp"
+            />
 
         </LinearLayout>
 
