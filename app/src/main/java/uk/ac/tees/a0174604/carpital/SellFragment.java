@@ -277,10 +277,10 @@ public class SellFragment extends Fragment {
         });
 
     }
-
-    private void filterByCarMake(JSONObject jsonObject, String carMake){
-
-    }
+//
+//    private void filterByCarMake(JSONObject jsonObject, String carMake){
+//
+//    }
 
     //    use singleton pattern to instantiate the fragment
     public static SellFragment newInstance(){
