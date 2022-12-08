@@ -97,6 +97,18 @@
     <string name="add_vehicle_listing_in_a_matter_of_minutes">Add vehicle listing in a matter of minutes</string>
     <string name="choose_car_model">Choose Car Model</string>
     <string name="choose_location">Enter Location</string>
+    <string name="get_vehicle_history">Get Vehicle Information</string>
+    <string name="get_details_of_your_car_by_entering_its_vin">Get details of your car by entering its VIN</string>
+    <string name="sample_vin">1GNALDEK9FZ108495</string>
+    <string name="get_report">GET REPORT</string>
+    <string name="clear_report">CLEAR REPORT</string>
+    <string name="car_make">Car Make</string>
+    <string name="car_model">Car Model</string>
+    <string name="transmission">Transmission</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="make">Make</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
 
 
 </resources>
