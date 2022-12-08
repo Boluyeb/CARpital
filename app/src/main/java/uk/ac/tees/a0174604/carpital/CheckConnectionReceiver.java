@@ -1,5 +1,6 @@
 package uk.ac.tees.a0174604.carpital;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -37,7 +38,7 @@ public class CheckConnectionReceiver extends BroadcastReceiver {
 
 //        using connectivity manager
             ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo networkInfo = manager.getActiveNetworkInfo();
 
             return (networkInfo != null && networkInfo.isConnected());
 

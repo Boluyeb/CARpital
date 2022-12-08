@@ -96,7 +96,7 @@
     <string name="choose_car_make">Choose Car Make</string>
     <string name="add_vehicle_listing_in_a_matter_of_minutes">Add vehicle listing in a matter of minutes</string>
     <string name="choose_car_model">Choose Car Model</string>
-    <string name="choose_location">Choose Location</string>
+    <string name="choose_location">Enter Location</string>
 
 
 </resources>

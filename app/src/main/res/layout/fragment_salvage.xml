@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Salvage Fragment"
+        android:textColor="@color/md_theme_light_error"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/md_theme_light_error"/>
+        android:textStyle="bold" />
 
 </FrameLayout>

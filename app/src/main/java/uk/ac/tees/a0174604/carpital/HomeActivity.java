@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -43,6 +44,11 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch(item.getItemId()) {
                     case R.id.miHome:
+                        //        hide map floating action button
+                        if(SearchFragment.fab != null && SearchFragment.fab.getVisibility() == View.VISIBLE){
+                            SearchFragment.fab.setVisibility(View.INVISIBLE);
+                        }
+
                         setFragment(HomeFragment.newInstance());
                         break;
 
@@ -51,14 +57,29 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.miSell:
+                        if(SearchFragment.fab != null && SearchFragment.fab.getVisibility() == View.VISIBLE){
+                            SearchFragment.fab.setVisibility(View.INVISIBLE);
+                        }
+
+
                         setFragment(SellFragment.newInstance());
                         break;
 
                     case R.id.miSalvage:
+                        if(SearchFragment.fab != null && SearchFragment.fab.getVisibility() == View.VISIBLE){
+                            SearchFragment.fab.setVisibility(View.INVISIBLE);
+                        }
+
+
                         setFragment(SalvageFragment.newInstance());
                         break;
 
                     case R.id.miSettings:
+                        if(SearchFragment.fab != null && SearchFragment.fab.getVisibility() == View.VISIBLE){
+                            SearchFragment.fab.setVisibility(View.INVISIBLE);
+                        }
+
+
                         setFragment(SettingsFragment.newInstance());
                         break;
 
