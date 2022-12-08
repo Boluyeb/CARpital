@@ -2,12 +2,19 @@ package uk.ac.tees.a0174604.carpital;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,21 +37,31 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +72,10 @@ public class SellFragment extends Fragment {
     private static SellFragment unique;
     private TextInputLayout location;
     private Button addListing;
+    private String city;
+    private DatabaseReference databaseReference;
+
+    public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.SellFragment";
 
     private String LOG_TAG = SellFragment.class.getSimpleName();
 //    private TextView display1;
@@ -78,6 +100,14 @@ public class SellFragment extends Fragment {
 
 //    private String carMakeFilter;
 
+//    image variables
+    private ImageView carSellPic;
+    private Button chooseCar;
+    private Uri imageUri;
+
+//    text input layout
+    private TextInputLayout carMakeBox, carModelBox, carYearBox, carCateBox, carAmtBox;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,11 +115,24 @@ public class SellFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_sell, container, false);
         location = rootView.findViewById(R.id.car_location);
+        carMakeBox = rootView.findViewById(R.id.car_make);
+        carModelBox = rootView.findViewById(R.id.car_model);
+        carYearBox = rootView.findViewById(R.id.car_year);
+        carCateBox = rootView.findViewById(R.id.car_cate);
+        carAmtBox = rootView.findViewById(R.id.car_cost);
+
+
         addListing = rootView.findViewById(R.id.submit_listing);
         carMakeComplete = rootView.findViewById(R.id.carMake_complete);
         carModelComplete = rootView.findViewById(R.id.carModelComplete);
         carYearComplete = rootView.findViewById(R.id.carYearComplete);
         carCateComplete = rootView.findViewById(R.id.carCateComplete);
+
+        carSellPic = rootView.findViewById(R.id.sell_photo);
+        chooseCar = rootView.findViewById(R.id.choose_photo);
+
+
+
 
 
 //        stores car makes
@@ -221,12 +264,25 @@ public class SellFragment extends Fragment {
         addListing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(!validateFields(carMakeBox) || !validateFields(carModelBox) || !validateFields(carYearBox) || !validateFields(carCateBox)
+                || !validateFields(location) || !validateFields(carAmtBox)){
+                    return;
+                }
+                uploadImg();
 
             }
         });
 
 
+        chooseCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent photoIntent = new Intent(Intent.ACTION_PICK);
+                photoIntent.setType("image/*");
+                startActivityForResult(photoIntent, 1);
+//                Log.d(LOG_TAG, imageUri.toString());
+            }
+        });
 
 
 
@@ -240,10 +296,14 @@ public class SellFragment extends Fragment {
             Place place = Autocomplete.getPlaceFromIntent(data);
 //            set address on text
             location.getEditText().setText(place.getAddress());
-//         set locality name
-//            display1.setText(String.format("Locality Name : %s", place.getName()));
-////            set long and lat
-//            display2.setText(String.valueOf(place.getLatLng()));
+
+             city = place.getName();
+
+
+        }
+        else if(requestCode == 1 && resultCode == Activity.RESULT_OK && data !=null){
+            imageUri =  data.getData();
+            getImageInImageView();
         }
         else if(resultCode == AutocompleteActivity.RESULT_ERROR){
 //            Initailise status
@@ -254,7 +314,18 @@ public class SellFragment extends Fragment {
 
     }
 
-//    array adapter for dropdown
+
+    private void getImageInImageView() {
+        Bitmap bitmap = null;
+        try{
+            bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        carSellPic.setImageBitmap(bitmap);
+    }
+
+    //    array adapter for dropdown
     private void getArrayAdapter(ArrayList<String> carList, AutoCompleteTextView autoCompleteTextView){
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, carList);
         autoCompleteTextView.setAdapter(arrayAdapter);
@@ -288,5 +359,96 @@ public class SellFragment extends Fragment {
             unique = new SellFragment();
         }
         return unique;
+
     }
+
+
+//        upload image to firebase storage
+private void uploadImg() {
+    ProgressDialog progressDialog = new ProgressDialog(getActivity());
+    progressDialog.setTitle("Updating...");
+    progressDialog.show();
+
+//        store image in firebase storage
+    FirebaseStorage.getInstance().getReference("images/"+ UUID.randomUUID().toString()).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+            if(task.isSuccessful()){
+//                    get image url and set it to user.
+                task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if(task.isSuccessful()){
+                            String vehicleImg = task.getResult().toString();
+                            String vehicleMake = carMakeBox.getEditText().getText().toString().trim();
+                            String vehicleModel = carModelBox.getEditText().getText().toString().trim();
+                            String vehicleYear = carYearBox.getEditText().getText().toString().trim();
+                            String vehicleCate = carCateBox.getEditText().getText().toString().trim();
+                            String vehicleLocation = city;
+                            String vehicleCost = "£"+carAmtBox.getEditText().getText().toString().trim();
+
+//                            helper class for car recently added
+                            RecentDomain newCar = new RecentDomain(vehicleMake, vehicleModel, vehicleYear, vehicleCate, vehicleLocation, vehicleCost, vehicleImg);
+
+                            databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                            String id = databaseReference.push().getKey();
+
+                            databaseReference.child("Cars").child(id).setValue(newCar).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+
+                                        Intent intent = new Intent(getActivity(),SuccessActivity.class);
+                                        String message = "Listing Successfully Created";
+                                        intent.putExtra(EXTRA_MESSAGE,message);
+                                        startActivity(intent);
+                                        getActivity().finish();
+
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(), "Listing not created please try again", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+
+                        }
+                    }
+                });
+
+
+            } else {
+                Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+            progressDialog.dismiss();
+        }
+    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+            double progress = 100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount();
+            progressDialog.setMessage("Uploaded" +(int) progress + "%");
+        }
+    });
+}
+
+
+    //    validate for empty fields
+//    validate for empty values
+    private boolean validateFields(TextInputLayout inputVal) {
+//        get the name as a string
+        String val = inputVal.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()) {
+            inputVal.setError("This field is required");
+            return false;
+        } else {
+            inputVal.setError(null);
+            inputVal.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+
 }

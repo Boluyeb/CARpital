@@ -40,8 +40,8 @@
 
             <ImageView
                 android:id="@+id/car_picture"
-                android:layout_width="120dp"
-                android:layout_height="84dp"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/audi"
 
@@ -64,14 +64,21 @@
                     android:text="Audi"
                     />
 
+<!--                <TextView-->
+<!--                    android:id="@+id/car_model"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="11sp"-->
+<!--                    android:text="S5"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    />-->
+
                 <TextView
                     android:id="@+id/car_model"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
-                    android:text="S5"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black"/>
 
 
                 <TextView
@@ -84,11 +91,20 @@
                     />
 
                 <TextView
-                    android:id="@+id/car_spec"
+                    android:id="@+id/car_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
-                    android:text="Quattro Edition"
+                    android:text="2010"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/car_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:text="Dubai"
                     android:textColor="@color/black"
                     />
 

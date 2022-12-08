@@ -57,7 +57,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="36dp"
                 android:hint="@string/sample_vin"
-                app:startIconDrawable="@drawable/edit_icon">
+                app:startIconDrawable="@drawable/edit_icon"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loc_input"

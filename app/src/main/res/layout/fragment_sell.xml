@@ -59,7 +59,7 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="10dp"
-                app:endIconMode="none"
+                app:endIconMode="clear_text"
                 >
 
                 <AutoCompleteTextView
@@ -81,7 +81,7 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="20dp"
-                app:endIconMode="none"
+                app:endIconMode="clear_text"
                 >
 
                 <AutoCompleteTextView
@@ -102,7 +102,7 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="20dp"
-                app:endIconMode="none"
+                app:endIconMode="clear_text"
                 >
 
                 <AutoCompleteTextView
@@ -122,7 +122,8 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="20dp"
-                app:endIconMode="none"
+                app:endIconMode="clear_text"
+
                 >
 
                 <AutoCompleteTextView
@@ -144,6 +145,7 @@
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="20dp"
                 app:startIconDrawable="@drawable/map_icon"
+                app:endIconMode="clear_text"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -173,7 +175,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/user"
+                android:id="@+id/car_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -210,12 +212,15 @@
                 android:layout_gravity="center">
 
                 <ImageView
+                    android:id="@+id/sell_photo"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/vehicle_img_item"
 
                     />
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/choose_photo"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:background="#cccccc"

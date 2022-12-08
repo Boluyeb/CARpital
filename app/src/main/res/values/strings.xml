@@ -109,6 +109,9 @@
     <string name="make">Make</string>
     <string name="model">Model</string>
     <string name="year">Year</string>
+    <string name="go_home">GO HOME</string>
+    <string name="kindly_go_to_the_home_page">Kindly go to the home page</string>
+    <string name="success">Success</string>
 
 
 </resources>

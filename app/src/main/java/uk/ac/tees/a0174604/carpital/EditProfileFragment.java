@@ -144,39 +144,42 @@ public class EditProfileFragment extends Fragment {
                 sessionManager.logoutUserFromSession();
 
 
-//                SessionManager newManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
-//
-////update changes from db to session
-//                Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
-//
-//                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.exists()) {
-//                            String nameNew = snapshot.child(phoneNumber).child("name").getValue(String.class);
-//                            String emailNew = snapshot.child(phoneNumber).child("email").getValue(String.class);
-//                            String pwd = snapshot.child(phoneNumber).child("password").getValue(String.class);
-//                            String profileImgNew = snapshot.child(phoneNumber).child("profilePicture").getValue(String.class);
-//
-//                            newManager.createLoginSession(nameNew, emailNew, phoneNumber, pwd, profileImgNew);
-//
-//                            Intent intent = new Intent(getActivity(),HomeActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(intent);
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                SessionManager newManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
 
-//working code
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+//update changes from db to session
+                Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
+
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String nameNew = snapshot.child(phoneNumber).child("name").getValue(String.class);
+                            String emailNew = snapshot.child(phoneNumber).child("email").getValue(String.class);
+                            String pwd = snapshot.child(phoneNumber).child("password").getValue(String.class);
+                            String profileImgNew = snapshot.child(phoneNumber).child("profilePicture").getValue(String.class);
+
+                            newManager.createLoginSession(nameNew, emailNew, phoneNumber, pwd, profileImgNew);
+
+                            Intent intent = new Intent(getActivity(),SuccessActivity.class);
+                            String message = "Profile Successfully Updated";
+                            intent.putExtra(SellFragment.EXTRA_MESSAGE,message);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+////working code
+//                Intent intent = new Intent(getActivity(),LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
 
 //                Intent intent = new Intent(getActivity(),HomeActivity.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -250,7 +253,7 @@ public class EditProfileFragment extends Fragment {
 
     }
 
-    //    create Uri for message
+    //    create Uri for message*
     private Uri createUri() {
         File imageFile = new File(getActivity().getApplicationContext().getFilesDir(), "camera_photo.jpg");
         return FileProvider.getUriForFile(

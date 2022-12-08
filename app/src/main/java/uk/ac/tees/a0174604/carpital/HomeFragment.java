@@ -3,15 +3,23 @@ package uk.ac.tees.a0174604.carpital;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +47,8 @@ public class HomeFragment extends Fragment {
     private TextView timeGreeting;
     private TextView userName;
 
+//    database reference
+    private DatabaseReference databaseReference;
 
 
     private HomeFragment(){
@@ -65,6 +75,8 @@ public class HomeFragment extends Fragment {
 //        start session
       sessionInfo();
 
+//      database ref
+
 
 
         return rootView;
@@ -76,15 +88,31 @@ public class HomeFragment extends Fragment {
         recyclerViewRecentList.setLayoutManager(linearLayoutManager);
 
         ArrayList<RecentDomain> recentList = new ArrayList<>();
-        recentList.add(new RecentDomain("Audi", "S5", "audi", "£35,000", "Quattro"));
-        recentList.add(new RecentDomain("Mercedes", "S560", "benz", "£105,000", "4-Matic"));
-        recentList.add(new RecentDomain("Porsche", "911", "porshe", "£110,000", "Convertible"));
-        recentList.add(new RecentDomain("Rolls Royce", "Cullinan", "rr", "£560,000", "V12"));
-        recentList.add(new RecentDomain("Volkswagen", "Golf", "vw", "£20,000", "TDI"));
+//
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Cars");
 
         recentAdapter = new RecentAdapter(recentList);
-
         recyclerViewRecentList.setAdapter(recentAdapter);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot child: snapshot.getChildren()) {
+                    RecentDomain newCar = child.getValue(RecentDomain.class);
+                    recentList.add(newCar);
+                }
+                recentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getActivity(), "Cars Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
     }
 

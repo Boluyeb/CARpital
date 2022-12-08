@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecoverPasswordSuccessFragment"
-    android:background="@color/white"
-    android:padding="30dp"
+    tools:context=".SuccessActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="30dp">
+
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/success_icon"
+        android:src="@drawable/success_car"
         android:layout_marginTop="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password_nupdated"
-        android:textColor="@color/black"
+        android:text="@string/success"
         android:textSize="30sp"
         android:textAlignment="center"
         android:gravity="center"
-        android:fontFamily="@font/archivo_black"
+       android:textStyle="bold"
         android:layout_marginTop="10dp"
         />
 
 
 
     <TextView
+        android:id="@+id/success_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/success_desc"
-        android:textColor="@color/black"
+        android:text="@string/kindly_go_to_the_home_page"
         android:textSize="16sp"
         android:fontFamily="@font/archivo"
         android:layout_marginTop="10dp"
@@ -41,13 +41,13 @@
         android:textAlignment="center"/>
 
     <Button
-        android:id="@+id/go_to_login"
+        android:id="@+id/go_to_home"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:text="@string/login"
+        android:text="@string/go_home"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/archivo_black"
 
@@ -55,6 +55,9 @@
         android:textColor="#fff"
         android:transitionName="transition_next_login"
         />
+
+
+
 
 
 
