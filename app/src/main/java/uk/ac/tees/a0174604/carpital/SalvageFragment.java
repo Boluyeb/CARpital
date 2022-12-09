@@ -126,7 +126,7 @@ public class SalvageFragment extends Fragment {
 //                            5TFEV54198X043410
 //                            1GNALDEK9FZ108495
 
-
+                            saveData();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -204,6 +204,7 @@ public class SalvageFragment extends Fragment {
                 }
 
             }
+
         });
 
         clearReportBtn.setOnClickListener(new View.OnClickListener() {
@@ -243,5 +244,43 @@ public class SalvageFragment extends Fragment {
 //    convert string to https
     private String addChar(String str, char ch, int position) {
         return str.substring(0, position) + ch + str.substring(position);
+    }
+
+//    save data for data persistence
+    private void saveData(){
+        String vin_txt = carVin.getEditText().getText().toString().trim();
+        String carMake_txt = carMake.getEditText().getText().toString().trim();
+        String carModel_txt = carModel.getEditText().getText().toString().trim();
+        String carYear_txt = carYear.getEditText().getText().toString().trim();
+        String carManu_txt = carManu.getEditText().getText().toString().trim();
+        String carTrim_txt = carTrim.getEditText().getText().toString().trim();
+        String carTrans_txt = carTrans.getEditText().getText().toString().trim();
+
+//        if(vin_txt.isEmpty()){
+
+            ReportModel model = new ReportModel();
+
+            model.setVin(vin_txt);
+            model.setCarMake(carMake_txt);
+            model.setCarModel(carModel_txt);
+            model.setCarYear(carYear_txt);
+            model.setCarManu(carManu_txt);
+            model.setCarTrim(carTrim_txt);
+            model.setCarTrans(carTrans_txt);
+
+
+
+            ReportDatabaseClass.getDatabase(getActivity().getApplicationContext()).getDao().insertAllData(model);
+
+//            carVin.getEditText().setText("");
+//        carMake.getEditText().setText("");
+//        carModel.getEditText().setText("");
+//        carYear.getEditText().setText("");
+//        carManu.getEditText().setText("");
+//        carTrim.getEditText().setText("");
+//        carTrans.getEditText().setText("");
+            Log.d(LOG_TAG, "Data Successfully saved");
+
+//        }
     }
 }

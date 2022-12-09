@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
 //    database reference
     private DatabaseReference databaseReference;
 
+    private ImageView getReportHistoryBtn;
 
     private HomeFragment(){
 
@@ -63,6 +65,18 @@ public class HomeFragment extends Fragment {
 
          timeGreeting = rootView.findViewById(R.id.day_text);
          userName = rootView.findViewById(R.id.user_name);
+
+//         go to hsitory report on home page
+        getReportHistoryBtn = rootView.findViewById(R.id.salvage_notes);
+
+
+        getReportHistoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ReportHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //         recycler view for brandlist
         recyclerViewBrandList();
@@ -124,12 +138,15 @@ public class HomeFragment extends Fragment {
 //        pass the java class for the
         ArrayList<BrandDomain> brandList = new ArrayList<>();
         brandList.add(new BrandDomain("Mercedes","benz_logo"));
-        brandList.add(new BrandDomain("BMW","bmw_logo"));
+        brandList.add(new BrandDomain("Mazda","mazda_logo"));
         brandList.add(new BrandDomain("Toyota","toyota_log"));
-        brandList.add(new BrandDomain("Peugeot","peugeot_logo"));
+        brandList.add(new BrandDomain("Honda","honda_one"));
+        brandList.add(new BrandDomain("Land Rover","landrover"));
         brandList.add(new BrandDomain("Audi","audi_log"));
         brandList.add(new BrandDomain("Jaguar","jaguar_logo"));
-        brandList.add(new BrandDomain("Mazda","mazda_logo"));
+        brandList.add(new BrandDomain("Volvo","volvo"));
+        brandList.add(new BrandDomain("Peugeot","peugeot_logo"));
+
 
 //        adapter
         brandAdapter = new BrandAdapter(brandList);

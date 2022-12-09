@@ -34,7 +34,7 @@ public class RecentDomain {
     public String getCarModel() {
         return carModel;
     }
-    public void setCarModel(String carName) {
+    public void setCarModel(String carModel) {
         this.carModel = carModel;
     }
 

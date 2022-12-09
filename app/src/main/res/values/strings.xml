@@ -112,6 +112,7 @@
     <string name="go_home">GO HOME</string>
     <string name="kindly_go_to_the_home_page">Kindly go to the home page</string>
     <string name="success">Success</string>
+    <string name="vehicle_search_history">Vehicle Search History</string>
 
 
 </resources>
