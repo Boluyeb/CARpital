@@ -3,7 +3,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContactFragment">
+    tools:context=".ContactFragment"
+    android:scrollbars="none"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/contact_me"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/seed"/>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/contact"
+            android:layout_marginTop="10dp"
+
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        android:background="@drawable/homegreycontainer"
+        android:padding="20dp"
+        android:elevation="10dp"
+        android:layout_marginBottom="20dp">
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/for_enquiries_about_the_app_and_our_vehicle_listings_contact_me"
+           />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Boluwatife Yebisi"
+            android:drawableStart="@drawable/username_icon"
+            android:drawablePadding="20dp"
+            android:drawableTint="@color/black"
+            android:textSize="16sp"
+            android:textColor="@color/seed"
+            android:textStyle="bold"
+
+            />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="a0174604@live.tees.ac.uk"
+            android:drawableStart="@drawable/email_icon"
+            android:drawablePadding="20dp"
+            android:drawableTint="@color/black"
+            android:textSize="16sp"
+            android:textColor="@color/seed"
+                android:textStyle="bold"
+            />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="A0174604"
+            android:drawableStart="@drawable/edit_icon"
+            android:drawablePadding="20dp"
+            android:drawableTint="@color/black"
+            android:textSize="16sp"
+            android:textColor="@color/seed"
+                android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="07413190462"
+            android:drawableStart="@drawable/phone_icon"
+            android:drawablePadding="20dp"
+            android:drawableTint="@color/black"
+            android:textSize="16sp"
+            android:textColor="@color/seed"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            />
+
+
+
+    </LinearLayout>
+    </LinearLayout>
 
 
 

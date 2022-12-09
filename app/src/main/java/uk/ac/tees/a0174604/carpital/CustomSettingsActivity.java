@@ -92,6 +92,13 @@ public class CustomSettingsActivity extends AppCompatActivity {
 
 
         }
+        else if(message.equals("contactMe")){
+            ContactFragment contactFragment = ContactFragment.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_holder, contactFragment).addToBackStack(contactFragment.toString()).commit();
+
+        }
 
 
     }

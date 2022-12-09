@@ -197,45 +197,89 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contact_me"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+
+                >
 
                 <ImageView
-                    android:id="@+id/notif_image"
+                    android:id="@+id/contact_me_img"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_notification"
-                    android:layout_marginTop="10dp"
+                    android:src="@drawable/email_icon"
+                    app:tint="@color/seed"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
-                    android:id="@+id/notif_text"
+                    android:id="@+id/contact_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/notifications"
+                    android:text="@string/contact_me"
                     android:textStyle="bold"
                     android:textColor="@color/seed"
-                    app:layout_constraintTop_toTopOf="@id/notif_image"
-                    app:layout_constraintStart_toEndOf="@id/notif_image"
+                    app:layout_constraintTop_toTopOf="@id/contact_me"
+                    app:layout_constraintStart_toEndOf="@id/contact_me_img"
                     android:layout_marginStart="10dp"
                     android:textSize="18sp"
                     />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_notif"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/next_contact"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:backgroundTintMode="@color/seed"
+                    android:src="@drawable/ic_next"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:thumbTint="@color/seed"
-                    app:trackTint="@color/white"
-                   />
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_marginTop="10dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/notif_image"-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_notification"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/notif_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/notifications"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/seed"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/notif_image"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/notif_image"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:textSize="18sp"-->
+<!--                    />-->
+
+<!--                <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--                    android:id="@+id/switch_notif"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:thumbTint="@color/seed"-->
+<!--                    app:trackTint="@color/white"-->
+<!--                   />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deactivate_acc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"

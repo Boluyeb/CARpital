@@ -113,6 +113,8 @@
     <string name="kindly_go_to_the_home_page">Kindly go to the home page</string>
     <string name="success">Success</string>
     <string name="vehicle_search_history">Vehicle Search History</string>
+    <string name="contact_me">Contact Me</string>
+    <string name="for_enquiries_about_the_app_and_our_vehicle_listings_contact_me">For enquiries about the app and our vehicle listings contact me.</string>
 
 
 </resources>
