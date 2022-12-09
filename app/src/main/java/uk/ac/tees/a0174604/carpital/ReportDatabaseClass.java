@@ -9,7 +9,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {ReportModel.class}, version = 1)
+@Database(entities = {ReportModel.class}, version = 1, exportSchema = false)
 public abstract class ReportDatabaseClass extends RoomDatabase {
 
     public abstract DaoClass getDao();

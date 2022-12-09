@@ -75,6 +75,7 @@ public class SettingsFragment extends Fragment {
                 intent.putExtra(EXTRA_MESSAGE, message);
                 intent.putExtra(EXTRA_PHONE, phoneNumber);
                 startActivity(intent);
+
             }
         });
 
@@ -96,11 +97,7 @@ public class SettingsFragment extends Fragment {
 
 //                working code
                 startActivity(intent);
-
-
-//                not working
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//               startActivity(intent);
+                getActivity().finish();
 
 
 

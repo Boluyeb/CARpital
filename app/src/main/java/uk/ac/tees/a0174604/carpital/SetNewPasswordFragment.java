@@ -16,6 +16,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SetNewPasswordFragment#newInstance} factory method to
@@ -110,10 +112,13 @@ public class SetNewPasswordFragment extends Fragment {
                     progressBar.setVisibility(View.VISIBLE);
 //                    get user input
                     String userNewPwd = pwd.getEditText().getText().toString().trim();
+//
+//                    hashPassword
+                    String hashPwd = BCrypt.withDefaults().hashToString(12, userNewPwd.toCharArray());
 
 //                    update password in firebase database
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-                    databaseReference.child(phoneNum).child("password").setValue(userNewPwd);
+                    databaseReference.child(phoneNum).child("password").setValue(hashPwd);
 
 //                    launch fragment
                     RecoverPasswordSuccessFragment recoverPasswordSuccessFragment = RecoverPasswordSuccessFragment.getInstance();

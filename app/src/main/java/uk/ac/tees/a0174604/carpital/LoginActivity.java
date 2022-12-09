@@ -32,6 +32,8 @@ import com.hbb20.CountryCodePicker;
 
 import java.util.HashMap;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
@@ -150,7 +152,10 @@ public class LoginActivity extends AppCompatActivity {
 
 //                                get the password from database and ensure it matches the password in the database.
                                 String dbPwd = snapshot.child(userFullPhoneNo).child("password").getValue(String.class);
-                                if (dbPwd.equals(userPwd)) {
+
+                                BCrypt.Result result = BCrypt.verifyer().verify(userPwd.toCharArray(), dbPwd);
+
+                                if (result.verified) {
                                     pwd.setError(null);
                                     pwd.setErrorEnabled(false);
 

@@ -34,6 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OTPFragment#getInstance} factory method to
@@ -256,8 +258,11 @@ public class OTPFragment extends Fragment {
 //        point to the database reference (table)
         DatabaseReference reference = database.getReference("Users");
 
+//        hashedpassword
+        String hashPwd = BCrypt.withDefaults().hashToString(12, pwd.toCharArray());
+
 //        add new users use the UserDbClass
-        UserDbClass addNewUser = new UserDbClass(name,email,phoneNum,pwd,"");
+        UserDbClass addNewUser = new UserDbClass(name,email,phoneNum,hashPwd,"");
 
 //        set value and add user id as phone number
         reference.child(phoneNum).setValue(addNewUser);

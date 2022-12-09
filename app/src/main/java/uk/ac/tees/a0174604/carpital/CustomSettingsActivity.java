@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 public class CustomSettingsActivity extends AppCompatActivity {
 
     private ImageView setBackBtn;
+//    private ProgressDialog EditProfileFragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,9 @@ public class CustomSettingsActivity extends AppCompatActivity {
         setBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+               Intent intent =  new Intent(CustomSettingsActivity.this, HomeActivity.class);
+               startActivity(intent);
+               finish();
 
             }
         });
@@ -38,11 +42,27 @@ public class CustomSettingsActivity extends AppCompatActivity {
 //        get message from the intent
         String message = intent.getStringExtra(SettingsFragment.EXTRA_MESSAGE);
         String phoneNumber = intent.getStringExtra(SettingsFragment.EXTRA_PHONE);
+        String email = intent.getStringExtra(SettingsFragment.EXTRA_EMAIL);
+        String name = intent.getStringExtra(SettingsFragment.EXTRA_NAME);
+        String profilePicture = intent.getStringExtra(SettingsFragment.EXTRA_PROFILEIMG);
 
 
         if (message.equals("editProfile")){
+            Bundle bundle = new Bundle();
+            bundle.putString("phoneNo",phoneNumber);
+            bundle.putString("email",email);
+            bundle.putString("name",name);
+            bundle.putString("profilePicture",profilePicture);
+
             EditProfileFragment editProfileFragment = EditProfileFragment.newInstance();
-            setFragment(editProfileFragment);
+
+            editProfileFragment.setArguments(bundle);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_holder, editProfileFragment).addToBackStack(editProfileFragment.toString()).commit();
+
+
         }
         else if (message.equals("changePassword")){
 //            OTPFragment otpFragment = OTPFragment.getInstance();
@@ -76,11 +96,12 @@ public class CustomSettingsActivity extends AppCompatActivity {
 
     }
 
-    //    create fragment
-    public void setFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_holder, fragment).addToBackStack(fragment.toString()).commit();
+//    //    create fragment
+//    public void setFragment(Fragment fragment){
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_holder, fragment).addToBackStack(fragment.toString()).commit();
+//
+//    }
 
-    }
 }

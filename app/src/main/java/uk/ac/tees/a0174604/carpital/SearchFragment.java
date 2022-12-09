@@ -136,7 +136,7 @@ public class SearchFragment extends Fragment implements  OnMapReadyCallback, Goo
     public void onMapReady(@NonNull GoogleMap googleMap) {
         myGoogleMap = googleMap;
         Log.d(LOG, String.valueOf(myGoogleMap));
-//        myGoogleMap.setMyLocationEnabled(true);
+        myGoogleMap.setMyLocationEnabled(true);
     }
 
 

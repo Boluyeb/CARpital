@@ -63,6 +63,7 @@ public class EditProfileFragment extends Fragment {
 
     private ImageView profileImg;
     private String path;
+    ProgressDialog progressDialog;
 
 //    upload image using camera
     private ImageView uploadImg;
@@ -84,7 +85,7 @@ public class EditProfileFragment extends Fragment {
     private TextInputLayout userEmail;
 
 
-
+    public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.EditProfileFragment";
 
 
     private String LOG_TAG = EditProfileFragment.class.getSimpleName();
@@ -104,14 +105,19 @@ public class EditProfileFragment extends Fragment {
         imageUri = createUri();
         registerPictureLauncher();
 
-        SessionManager sessionManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
-        if (sessionManager.checkLogin()){
-//            get the user details
-            HashMap<String,String> userDetails = sessionManager.getUsersDetailFromSession();
-            phoneNumber = userDetails.get(SessionManager.KEY_PHONENUMBER);
-            email = userDetails.get(SessionManager.KEY_EMAIL);
-            tempProfileImg = userDetails.get(SessionManager.KEY_PROFILEIMG);
-            name = userDetails.get(SessionManager.KEY_NAME);
+//        SessionManager sessionManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
+//        if (sessionManager.checkLogin()){
+////            get the user details
+//            HashMap<String,String> userDetails = sessionManager.getUsersDetailFromSession();
+//            phoneNumber = userDetails.get(SessionManager.KEY_PHONENUMBER);
+//            email = userDetails.get(SessionManager.KEY_EMAIL);
+//            tempProfileImg = userDetails.get(SessionManager.KEY_PROFILEIMG);
+//            name = userDetails.get(SessionManager.KEY_NAME);\
+
+        phoneNumber = getArguments().getString("phoneNo");
+        name = getArguments().getString("name");
+        email = getArguments().getString("email");
+        tempProfileImg = getArguments().getString("profilePicture");
 
             if(!tempProfileImg.isEmpty()){
                 Glide.with(profileImg.getContext())
@@ -126,7 +132,7 @@ public class EditProfileFragment extends Fragment {
             userName.getEditText().setText(name);
             userEmail.getEditText().setText(email);
 
-        }
+//        }
 
 
 //        update user profile
@@ -140,15 +146,16 @@ public class EditProfileFragment extends Fragment {
                 changeUserEmail();
                 uploadImg();
 
-//                end user session as values have changed
-                sessionManager.logoutUserFromSession();
 
+                SessionManager manager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
 
-                SessionManager newManager = new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
+                if(manager.checkLogin()){
+                    manager.logoutUserFromSession();
+                    FirebaseAuth.getInstance().signOut();
 
-//update changes from db to session
-                Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
-
+                    SessionManager newManager =  new SessionManager(getActivity(), SessionManager.SESSION_USERSESSION);
+                    Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNumber").equalTo(phoneNumber);
+//
                 checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -159,31 +166,22 @@ public class EditProfileFragment extends Fragment {
                             String profileImgNew = snapshot.child(phoneNumber).child("profilePicture").getValue(String.class);
 
                             newManager.createLoginSession(nameNew, emailNew, phoneNumber, pwd, profileImgNew);
+//
 
-                            Intent intent = new Intent(getActivity(),SuccessActivity.class);
-                            String message = "Profile Successfully Updated";
-                            intent.putExtra(SellFragment.EXTRA_MESSAGE,message);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            getActivity().finish();
-
-                        }
-                    }
+                    }}
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                }
 
-////working code
-//                Intent intent = new Intent(getActivity(),LoginActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-
-//                Intent intent = new Intent(getActivity(),HomeActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(),SuccessActivity.class);
+                            String message = "Profile Successfully Updated";
+                            intent.putExtra(SellFragment.EXTRA_MESSAGE,message);
+                            startActivity(intent);
+                            getActivity().finish();
             }
         });
 
@@ -213,9 +211,11 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void uploadImg() {
-        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Updating...");
         progressDialog.show();
+
+
 
 //        store image in firebase storage
         FirebaseStorage.getInstance().getReference("images/"+ UUID.randomUUID().toString()).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -229,10 +229,12 @@ public class EditProfileFragment extends Fragment {
                             if(task.isSuccessful()){
                                 updateProfilePicture(task.getResult().toString());
                             }
+
                         }
                     });
 
-                    Toast.makeText(getActivity(), "Profile Successfully updated, please login", Toast.LENGTH_SHORT).show();
+
+//                    Toast.makeText(getActivity(), "Profile Successfully updated, please login", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -246,7 +248,7 @@ public class EditProfileFragment extends Fragment {
             }
         });
     }
-
+//change image on database
     private void updateProfilePicture(String url) {
 //        check database
         FirebaseDatabase.getInstance().getReference("Users").child(phoneNumber).child("profilePicture").setValue(url);
@@ -369,4 +371,16 @@ public class EditProfileFragment extends Fragment {
         }
         return unique;
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+
+    }
+
+
 }

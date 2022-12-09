@@ -75,6 +75,7 @@ public class SellFragment extends Fragment {
     private String city;
     private DatabaseReference databaseReference;
 
+
     public static final String EXTRA_MESSAGE = "Carpital.SettingsFragment.SellFragment";
 
     private String LOG_TAG = SellFragment.class.getSimpleName();
@@ -365,7 +366,7 @@ public class SellFragment extends Fragment {
 
 //        upload image to firebase storage
 private void uploadImg() {
-    ProgressDialog progressDialog = new ProgressDialog(getActivity());
+    ProgressDialog    progressDialog = new ProgressDialog(getActivity());
     progressDialog.setTitle("Updating...");
     progressDialog.show();
 
@@ -449,6 +450,5 @@ private void uploadImg() {
             return true;
         }
     }
-
 
 }
