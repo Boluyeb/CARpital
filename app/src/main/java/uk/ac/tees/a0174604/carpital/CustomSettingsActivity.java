@@ -110,5 +110,16 @@ public class CustomSettingsActivity extends AppCompatActivity {
 //        fragmentTransaction.replace(R.id.fragment_holder, fragment).addToBackStack(fragment.toString()).commit();
 //
 //    }
+@Override
+public void onDestroy() {
+    super.onDestroy();
+//    if (!EditProfileFragment.progressDialog.isShowing()){
+//        EditProfileFragment.progressDialog.dismiss();
+//    }
+//    if (EditProfileFragment.progressDialog != null && EditProfileFragment.progressDialog.isShowing()){
+//        EditProfileFragment.progressDialog.dismiss();
+//    }
+
+}
 
 }

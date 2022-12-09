@@ -63,7 +63,7 @@ public class EditProfileFragment extends Fragment {
 
     private ImageView profileImg;
     private String path;
-    ProgressDialog progressDialog;
+    public static ProgressDialog progressDialog;
 
 //    upload image using camera
     private ImageView uploadImg;
@@ -211,9 +211,13 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void uploadImg() {
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle("Updating...");
-        progressDialog.show();
+
+        if (progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setTitle("Updating...");
+            progressDialog.show();
+        }
+
 
 
 
